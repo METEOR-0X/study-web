@@ -81,6 +81,85 @@ nav li:first-child{
 .menu-buttum {
     display: none;
 }
+
+.n1 {
+    display: flex; /* استخدام Flexbox لترتيب العناصر بشكل أفقي */
+    justify-content: space-between; /* توزيع المسافة بين العناصر بحيث يكون العنوان والفقرة على اليسار والصورة على اليمين */
+    align-items: center; /* محاذاة العناصر من الأعلى */
+    padding: 20px;
+    margin-top: 100px;
+}
+
+.text-container {
+    max-width: 60%; /* تحديد عرض النصوص بحيث لا يملأ المساحة بالكامل */
+}
+
+.n1 h1 {
+    margin-bottom: 20px; /* مسافة بين العنوان والفقره */
+    font-size: 45px; /* حجم الخط للعنوان */
+    font-weight: 700;
+}
+
+.n1 p {
+    font-size: 16px; /* حجم الخط للفقره */
+    line-height: 1.6; /* ارتفاع السطر لتحسين القراءة */
+}
+
+.imgg {
+    max-width: 40%; /* تحديد عرض الصورة بحيث لا تأخذ أكثر من 40% من المساحة */
+    height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+}
+/* التأثيرات (أنيميشن) */
+.animate-title {
+    opacity: 0; /* التأثير سيبدأ من خلال جعل العنصر شفافاً */
+    transform: translateX(-50px); /* تحريك العنصر إلى اليسار قليلاً عند البداية */
+    animation: fadeInLeft 1s forwards; /* استخدام أنيميشن خاص بالظهور من اليسار */
+    animation-delay: 0.3s; /* تأخير الأنيميشن قليلًا */
+}
+
+.animate-text {
+    opacity: 0;
+    transform: translateY(20px); /* التحريك إلى أعلى قليلاً */
+    animation: fadeInUp 1s forwards;
+    animation-delay: 0.5s;
+}
+
+.animate-img {
+    opacity: 0;
+    transform: scale(0.8); /* جعل الصورة أصغر قليلاً عند البداية */
+    animation: fadeInRight 1s forwards;
+    animation-delay: 0.7s;
+}
+
+/* تعريف الأنيميشنات */
+@keyframes fadeInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+.imgg {
+    height: 300px;
+    width: 500px;
+}
+
 @media(max-width: 722px) {
     .hideonmobile {
         display: none;
@@ -92,7 +171,37 @@ nav li:first-child{
         font-size: 35px;
         font-weight: 800;
     }
+    .n1 {
+        display: flex;
+        flex-direction: column; /* ترتيب العناصر عموديًا */
+        justify-content: center; /* توسيط المحتوى عموديًا */
+        align-items: center; /* توسيط المحتوى أفقيًا */
+        padding: 5px;
+    }
+
+    .text-container {
+        max-width: 90%; /* زيادة عرض النصوص في الشاشات الصغيرة */
+        text-align: center; /* محاذاة النصوص في الوسط */
+    }
+
+    .n1 h1 {
+        font-size: 30px; /* تقليل حجم الخط في الشاشات الصغيرة */
+        margin-bottom: 15px;
+    }
+
+    .n1 p {
+        font-size: 14px; /* تقليل حجم الخط في الشاشات الصغيرة */
+        line-height: 1.5;
+    }
+
+    .imgg {
+        width: 124px; 
+        height: 100px;/* جعل الصورة تأخذ عرض أكبر في الشاشات الصغيرة */
+        margin-top: 20px; /* إضافة مسافة بين الصورة والنصوص */
+    }
 }
+    
+
 
 @media(max-width: 320px) {
     .sidebar {
