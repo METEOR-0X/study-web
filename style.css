@@ -156,7 +156,7 @@ nav li:first-child{
 
 
 .imgg {
-    height: 300px;
+    height: 400px;
     width: 500px;
 }
 
@@ -196,7 +196,7 @@ nav li:first-child{
 
     .imgg {
         width: 170px; 
-        height: 116px;/* جعل الصورة تأخذ عرض أكبر في الشاشات الصغيرة */
+        height: 121px;/* جعل الصورة تأخذ عرض أكبر في الشاشات الصغيرة */
         margin-top: 20px; /* إضافة مسافة بين الصورة والنصوص */
     }
 }
