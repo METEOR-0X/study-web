@@ -2,52 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="descreption" content="this web site help you to STUDY">
-    <meta name="keywords" content="2bac , exercises 2bac , exercises pc , exercises math">
-    <meta name="author" content="adam">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>EduCraft</title>
-    <link rel="stylesheet" href="style.css" />
-    
+    <link rel="stylesheet" href="style.css">
+    <title>Educraft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <nav>
-        <ul class="sidebar">
-            <li onclick=hide() ><a  href="#"><img class="clos" src="close.png" alt=""></a></li>
+    <section class="header">
+      <nav>
+        <a class="logo" href="#">Educraft</a>
+        <div class="nav-links" id="navlinks">
+          <i class="fa fa-close" onclick="hideMenu()"></i>
+          <ul>
             <li><a href="#">Exercices</a></li>
             <li><a href="#">Exams</a></li>
-            <li><a href="#">helps</a></li>
-            <li><a href="#">about</a></li>
-          </ul>
-        <ul>
-        <li><a class="logo" href="#">EduCraft</a></li>
-        <li class="hideonmobile"><a  href="#">Exercices</a></li>
-        <li class="hideonmobile"><a  href="#">Exams</a></li>
-        <li class="hideonmobile"><a  href="#">helps</a></li>
-        <li class="hideonmobile"><a  href="#">about</a></li>
-        <li class="menu-buttum" onclick=show() ><a  href="#"><img class="img" src="menu.png" alt=""></a></li>
+            <li><a href="#">Solutions</a></li>
+            <li><a href="#">Contact</a></li>
+         </ul>
+        </div>
+        <i class="fa fa-navicon" onclick="showMenu()"></i>
+      </nav>
+    <div class="text-box">
+        <h1>Solutions to all your study problems</h1>
+        <p>
+          A Moroccan website where you will find everything you need from exercises and exams, 
+          as well as other solutions that will help you in your studies. 
+          The website was created by me, a student like you.
+        </p>
+        <a href="#" class="hero-btn">Visit us to know more</a> 
+    </div>
+    </section>
+<script>
+  var navlinks = document.getElementById("navlinks");
+  function showMenu() {
+    navlinks.style.right ="0"
+  }
+  function hideMenu() {
+    navlinks.style.right ="-200px"
+  }
+</script>
 
-      </ul>
-    </nav>
-    <script>
-        function show() {
-          const sidebar = document.querySelector('.sidebar')
-          sidebar.style.display ='flex'
-        }
-        function hide() {
-          const sidebar = document.querySelector('.sidebar')
-          sidebar.style.display ='none' 
-        }
-    </script>
-    <div class="n1">
-      <div class="text-container">
-          <h1 class="animate-title">Des solutions à tous vos problèmes scolaires</h1>
-          <p class="animate-text">Sur ce site, vous trouverez des exercices et examens au format PDF, 
-             ainsi que leurs corrections, ainsi que des vidéos 
-             YouTube qui vous aideront grâce à mon expérience d'étudiant comme vous.</p>
-      </div>
-      <img class="imgg animate-img" src="img11.png" alt="Image description">
-  </div>
 </body>
 </html>
