@@ -3,208 +3,127 @@
     padding: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-
-body{
-    background: #ffffff;
-}
-
-nav{
-    background-color: #17ffb9;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-}
-
-nav ul{
+.header{
+    min-height: 100vh;
     width: 100%;
-    list-style: none;
+    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url(picture1.png);
+    background-position: center;
+    background-size: cover;
+}
+nav{
     display: flex;
-    justify-content: flex-end;
+    padding: 2% 6%;
+    justify-content: space-between;
     align-items: center;
 }
-
-nav li{
-    height: 100px;
-}
-
-nav a{
-    height: 100px;
-    padding: 0 30px;
+.logo{
+    font-size: 55px;
+    color: #2cf3e2;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 16px;
-}
-
-nav a:hover{
-    background-color: rgba(255, 255, 255, 0.486);
-}
-
-.logo {
-    font-size: 30px;
     font-weight: 800;
 }
-
-nav li:first-child{
-    margin-right: auto ;
+.nav-links{
+    flex: 1;
+    text-align: right;
 }
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 250px;
-    z-index: 999;
-    background-color: #17ffb9 ;
-    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
 }
-
-.sidebar li {
+.nav-links ul li a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+.nav-links ul li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #2cf3e2;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+.nav-links ul li:hover::after{
     width: 100%;
 }
-
-.img {
-    height: 43px;
-    width: 43px;
+.text-box{
+    width: 90%;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
 }
-
-.clos {
-    height: 43px;
-    width: 43px;
+.text-box h1{
+   font-size: 62px;
 }
-
-.menu-buttum {
+.text-box p{ 
+    margin: 10px 0 40px;
+    font-size: 16px;
+    color: #fff;
+}
+.hero-btn{
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+.hero-btn:hover{
+    border: 1px solid #2cf3e2;
+    background: #2cf3e2;
+    transition: 1s;
+}
+nav .fa{
     display: none;
 }
-
-.n1 {
-    display: flex; /* استخدام Flexbox لترتيب العناصر بشكل أفقي */
-    justify-content: space-between; /* توزيع المسافة بين العناصر بحيث يكون العنوان والفقرة على اليسار والصورة على اليمين */
-    align-items: center; /* محاذاة العناصر من الأعلى */
-    padding: 20px;
-    margin-top: 100px;
-}
-
-.text-container {
-    max-width: 60%; /* تحديد عرض النصوص بحيث لا يملأ المساحة بالكامل */
-}
-
-.n1 h1 {
-    margin-bottom: 20px; /* مسافة بين العنوان والفقره */
-    font-size: 45px; /* حجم الخط للعنوان */
-    font-weight: 700;
-}
-
-.n1 p {
-    font-size: 16px; /* حجم الخط للفقره */
-    line-height: 1.6; /* ارتفاع السطر لتحسين القراءة */
-}
-
-.imgg {
-    max-width: 40%; /* تحديد عرض الصورة بحيث لا تأخذ أكثر من 40% من المساحة */
-    height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
-}
-/* التأثيرات (أنيميشن) */
-.animate-title {
-    opacity: 0; /* التأثير سيبدأ من خلال جعل العنصر شفافاً */
-    transform: translateX(-50px); /* تحريك العنصر إلى اليسار قليلاً عند البداية */
-    animation: fadeInLeft 1s forwards; /* استخدام أنيميشن خاص بالظهور من اليسار */
-    animation-delay: 0.3s; /* تأخير الأنيميشن قليلًا */
-}
-
-.animate-text {
-    opacity: 0;
-    transform: translateY(20px); /* التحريك إلى أعلى قليلاً */
-    animation: fadeInUp 1s forwards;
-    animation-delay: 0.5s;
-}
-
-.animate-img {
-    opacity: 0;
-    transform: scale(0.8); /* جعل الصورة أصغر قليلاً عند البداية */
-    animation: fadeInRight 1s forwards;
-    animation-delay: 0.7s;
-}
-
-/* تعريف الأنيميشنات */
-@keyframes fadeInLeft {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInRight {
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-
-
-.imgg {
-    height: 400px;
-    width: 500px;
-}
-
-@media(max-width: 722px) {
-    .hideonmobile {
-        display: none;
-    }
-    .menu-buttum {
-        display: block;
-    }
-    .logo {
+@media(max-width: 650px){
+    .text-box h1{
         font-size: 35px;
+     }
+     .text-box p{ 
+        margin: 10px 0 40px;
+        font-size: 14px;
+        color: #fff;
+    }
+    .logo{
+        font-size: 45px;
+        color: #2cf3e2;
+        text-decoration: none;
         font-weight: 800;
     }
-    .n1 {
-        display: flex;
-        flex-direction: column; /* ترتيب العناصر عموديًا */
-        justify-content: center; /* توسيط المحتوى عموديًا */
-        align-items: center; /* توسيط المحتوى أفقيًا */
-        padding: 5px;
+    .nav-links ul li{
+        display: block;
     }
-
-    .text-container {
-        max-width: 95%; /* زيادة عرض النصوص في الشاشات الصغيرة */
-        text-align: center; /* محاذاة النصوص في الوسط */
+    .nav-links{
+        position: absolute;
+        background: #2cf3e2;
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        right: -200px;
+        text-align: left;
+        z-index: 2;
+        transition: 1s;
     }
-
-    .n1 h1 {
-        font-size: 45px; /* تقليل حجم الخط في الشاشات الصغيرة */
-        margin-bottom: 15px;
+    nav .fa{
+        display: block;
+        color: #fff;
+        margin: 10px;
+        font-size: 20px;
+        cursor: pointer;
     }
-
-    .n1 p {
-        font-size: 16px; /* تقليل حجم الخط في الشاشات الصغيرة */
-        line-height: 1.5;
+    .nav-links ul{
+        padding: 30px;
     }
-
-    .imgg {
-        width: 170px; 
-        height: 121px;/* جعل الصورة تأخذ عرض أكبر في الشاشات الصغيرة */
-        margin-top: 20px; /* إضافة مسافة بين الصورة والنصوص */
-    }
-}
     
-
-
-@media(max-width: 320px) {
-    .sidebar {
-        width: 100%;
-    }
+    
 }
+
