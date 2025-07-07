@@ -1,46 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Educraft</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RealCodeLab</title>
+    <meta name="description" content="RealCodeLab موقع لتعلم البرمجة بلغة بايثون ولغات أخرى. انطلق من الصفر إلى الاحتراف." />
+    <meta name="keywords" content="برمجة, بايثون, تعليم بايثون, تعلم البرمجة, RealCodeLab" />
+    <meta name="author" content="Adam" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css">
+    
 </head>
 <body>
-    <section class="header">
-      <nav>
-        <a class="logo" href="#">Educraft</a>
-        <div class="nav-links" id="navlinks">
-          <i class="fa fa-close" onclick="hideMenu()"></i>
-          <ul>
-            <li><a href="#">Exercices</a></li>
-            <li><a href="#">Exams</a></li>
-            <li><a href="#">Solutions</a></li>
-            <li><a href="#">Contact</a></li>
-         </ul>
+<nav>
+      <div class="nav__content">
+        <div class="logo"><a href="#">RealCodeLab</a></div>
+        <label for="check" class="checkbox">
+          <i class="ri-menu-line"></i>
+        </label>
+        <input type="checkbox" name="check" id="check" />
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Courses</a></li>
+          <li><a href="#">Books</a></li>
+          <li><a href="#">Advices</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </div>
+    </nav>
+    <section class="section">
+      <div class="section__container">
+        <div class="content">
+          <p class="subtitle">Welcome</p>
+          <h1 class="title">
+            In <span>RealCodeLab<br />a</span> programming environment 
+          </h1>
+          <p class="description">
+            Welcome to the Moroccan lab, where we will explain in Arabic and Darija courses in the form of videos, as well as books that we have created to help you learn quickly and that you can remember, and all of this in order to provide you with a good workplace.
+          </p>
+          <div class="action__btns">
+            <button class="hire__me">Courses</button>
+            <button class="portfolio">Library</button>
+          </div>
         </div>
-        <i class="fa fa-navicon" onclick="showMenu()"></i>
-      </nav>
-    <div class="text-box">
-        <h1>Solutions to all your study problems</h1>
-        <p>
-          A Moroccan website where you will find everything you need from exercises and exams, 
-          as well as other solutions that will help you in your studies. 
-          The website was created by me, a student like you.
-        </p>
-        <a href="#" class="hero-btn">Visit us to know more</a> 
-    </div>
+        <div class="image">
+          <img src="logo1.png" alt="profile" />
+        </div>
+      </div>
     </section>
-<script>
-  var navlinks = document.getElementById("navlinks");
-  function showMenu() {
-    navlinks.style.right ="0"
-  }
-  function hideMenu() {
-    navlinks.style.right ="-200px"
-  }
-</script>
-
 </body>
 </html>
