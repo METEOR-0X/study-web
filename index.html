@@ -11,45 +11,47 @@
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
     rel="stylesheet"/>
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<nav>
-      <div class="nav__content">
-        <div class="logo"><a href="#">RealCodeLab</a></div>
-        <label for="check" class="checkbox">
-          <i class="ri-menu-line"></i>
-        </label>
-        <input type="checkbox" name="check" id="check" />
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Courses</a></li>
-          <li><a href="#">Books</a></li>
-          <li><a href="#">Advices</a></li>
-          <li><a href="#">About Us</a></li>
-        </ul>
-      </div>
-    </nav>
-    <section class="section">
-      <div class="section__container">
-        <div class="content">
-          <p class="subtitle">Welcome</p>
-          <h1 class="title">
-            In <span>RealCodeLab<br />a</span> programming environment 
-          </h1>
-          <p class="description">
-            Welcome to the Moroccan lab, where we will explain in Arabic and Darija courses in the form of videos, as well as books that we have created to help you learn quickly and that you can remember, and all of this in order to provide you with a good workplace.
-          </p>
-          <div class="action__btns">
-            <button class="hire__me">Courses</button>
-            <button class="portfolio">Library</button>
-          </div>
+    <header>
+        <div class="logo" >RealCodeLab</div>
+        <div class="humberger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
         </div>
-        <div class="image">
-          <img src="logo1.png" alt="profile" />
-        </div>
-      </div>
-    </section>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#" >Courses</a></li>
+                <li><a href="#" >Library</a></li>
+                <li><a href="#" >About</a></li>
+            </ul>
+        </nav>
+    
+    </header>
+    
+   
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll(".nav-bar ul li a");
+
+    links.forEach(link => {
+      link.addEventListener("click", function () {
+        links.forEach(l => l.classList.remove("active"));
+        this.classList.add("active");
+      });
+    });
+  });
+ 
+ humberger = document.querySelector (".humberger");
+ humberger.onclick = function(){
+    navBar = document.querySelector(".nav-bar");
+    navBar.classList.toggle("active");
+
+ }
+</script>
+
+
 </body>
-</html>
