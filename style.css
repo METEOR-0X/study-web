@@ -1,219 +1,128 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
-
-:root {
-  --primary-color: #00ff22;
-  --primary-color-dark: #00ff22;
-  --secondary-color: #00ff22;
-  --text-dark: #1f2937;
-  --text-light: #6b7280;
-  --extra-light: #faf5ff;
-  --max-width: 1200px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Readex+Pro:wght@160..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Readex+Pro:wght@160..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
 }
 
-a {
-  text-decoration: none;
+body{
+    background-color: #3aafa9;
+    font-family: Ubuntu , sans-serif;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
+header {
+    width: 98%;
+    height: 95px;
+    background: #2b7a78;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 100px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto; 
+    border-radius: 30px;
 }
 
-nav {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #ffffff;
-  z-index: 99;
+
+.logo {
+    font-size: 35px;
+    font-weight: 650;
+    color: #ffffff;
 }
 
-.nav__content {
-  max-width: var(--max-width);
-  margin: auto;
-  padding: 1.5rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.humberger {
+    display: none;
 }
 
-nav .logo a {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--primary-color);
-  transition: 0.3s;
-}
-nav .logo a:hover {
-  color: var(--primary-color-dark);
+.nav-bar ul {
+    display: flex;
 }
 
-nav .checkbox {
-  display: none;
-}
-
-nav input {
-  display: none;
-}
-nav .checkbox i {
-  font-size: 2rem;
-  color: var(--primary-color);
-  cursor: pointer;
-}
-
-ul {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  list-style: none;
-  transition: left 0.3s;
-}
-
-ul li a {
-  padding: 0.5rem 1rem;
-  border: 2px solid transparent;
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--text-dark);
-  transition: 0.3s;
-}
-
-ul li a:hover {
-  border-top-color: var(--secondary-color);
-  border-bottom-color: var(--secondary-color);
-  color: var(--secondary-color);
-}
-
-.section {
-  background-color: var(--extra-light);
-}
-
-.section__container {
-  min-height: 100vh;
-  max-width: var(--max-width);
-  margin: auto;
-  padding: 1rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4rem;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.subtitle {
-  letter-spacing: 2px;
-  color: var(--text-light);
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.title {
-  font-size: 2.5rem;
-  font-weight: 400;
-  line-height: 3rem;
-  color: var(--text-dark);
-  margin-bottom: 1rem;
-}
-
-.title span {
-  font-weight: 600;
-}
-
-.description {
-  line-height: 1.5rem;
-  color: var(--text-light);
-  margin-bottom: 2rem;
-}
-
-.action__btns {
-  display: flex;
-  gap: 1rem;
-}
-
-.action__btns button {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  padding: 1rem 2rem;
-  outline: none;
-  border: 2px solid var(--primary-color);
-  border-radius: 10px;
-  transition: 0.5s;
-  cursor: pointer;
-}
-
-.hire__me {
-  background-color: var(--primary-color);
-  color: #ffffff;
-}
-
-.hire__me:hover {
-  background-color: var(--primary-color-dark);
-}
-
-.portfolio {
-  color: var(--primary-color);
-}
-
-.portfolio:hover {
-  background-color: var(--primary-color-dark);
-  color: #ffffff;
-}
-
-.image {
-  display: grid;
-  place-items: center;
-}
-
-.image img {
-  width: min(25rem, 90%);
-  border-radius: 100%;
-}
-
-@media (width < 750px) {
-  nav .checkbox {
+.nav-bar ul li a {
     display: block;
-  }
-
-  ul {
-    position: absolute;
-    width: 100%;
-    height: calc(100vh - 85px);
-    left: -100%;
-    top: 85px;
-    background-color: var(--extra-light);
-    flex-direction: column;
-    justify-content: center;
-    gap: 3rem;
-  }
-
-  nav #check:checked ~ ul {
-    left: 0;
-  }
-
-  ul li a {
-    font-size: 1.25rem;
-  }
-
-  .section__container {
-    padding: 10rem 1rem 5rem 1rem;
-    text-align: center;
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .image {
-    grid-area: 1/1/2/2;
-  }
-
-  .action__btns {
-    margin: auto;
-  }
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: 0.2s;
+    margin: 0 5px;
 }
+
+.nav-bar ul li a:hover,
+.nav-bar ul li a.active {
+    color: #ffffff;
+    background: #17252a;
+}
+
+@media only screen and (max-width: 1320px) {
+    header {
+        padding: 0 50px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    header {
+        padding: 0 30px;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .humberger {
+        display: block ;
+        cursor: pointer;
+    }
+    .humberger .line {
+        width: 28px;
+        height: 3px;
+        background: #ffffff;
+        margin: 6px 0;
+    }
+
+    .nav-bar ul li a:hover,
+.nav-bar ul li a.active {
+    color: #ffffff;
+    background: #2b7a78;
+}
+    .nav-bar.active {
+        height: 275px;
+    }
+    .nav-bar {
+        height: 0px;
+        position: absolute;
+        top: 109px;
+        left: 150px;
+        right: 30px;
+        width: 100vm;
+        border-radius: 40px;
+        background-color: #17252a;
+        transition: 0.2s;
+        overflow: hidden;
+    }
+
+    .logo {
+        font-size: 25px;
+        font-weight: 750;
+    }
+    .nav-bar ul {
+        display: block;
+        width: fit-content;
+        margin: 25px auto 0 auto;
+        text-align: center;
+        transition: 0.5s;
+        opacity: 0;
+    }
+    .nav-bar.active ul{
+         opacity: 1;
+    }
+    .nav-bar ul li a {
+        margin-bottom: 12px;
+    }
+
+}
+
+
