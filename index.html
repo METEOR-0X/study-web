@@ -1,57 +1,347 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>RealCodeLab</title>
-    <meta name="description" content="RealCodeLab موقع لتعلم البرمجة بلغة بايثون ولغات أخرى. انطلق من الصفر إلى الاحتراف." />
-    <meta name="keywords" content="برمجة, بايثون, تعليم بايثون, تعلم البرمجة, RealCodeLab" />
-    <meta name="author" content="Adam" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-    rel="stylesheet"/>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RealCodeLab</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Readex+Pro:wght@160..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+    :root {
+      --green: #194936;
+      --white: #fff;
+      --white-khfif: #f1f6f4;
+      --green-khfif: #2b7e5d;
+    }
+
+    * {
+      font-family: Inter;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      outline: none;
+      border: none;
+      text-decoration: none;
+      transition: 0.3s ease;
+      text-transform: capitalize;
+    }
+
+    *::selection {
+      background-color: var(--white);
+      color: var(--green);
+    }
+
+    html {
+      font-size: 62.5%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      scroll-padding-top: 8rem;
+    }
+
+    ::-webkit-scrollbar {
+      height: 0.5rem;
+      width: 1rem;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--green);
+      border-radius: 5rem;
+    }
+
+    body {
+      background-color: var(--white);
+      padding-top: 9rem; /* زيادة المسافة عن الهيدر */
+    }
+
+    .flex {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .header {
+      position: fixed;
+      top: 1rem;
+      left: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      background-color: var(--white-khfif);
+      border-radius: 1.5rem;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header .flex {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header .flex .logo {
+      font-size: 3rem;
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .header .flex .navbar {
+      transition: all 0.4s ease;
+    }
+
+    .header .flex .navbar a {
+      margin-left: 2rem;
+      color: var(--green);
+      font-size: 15px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .header .flex .navbar a:hover {
+      color: var(--green);
+    }
+
+    .header .flex .navbar a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      left: 0;
+      bottom: -5px;
+      background-color: var(--green);
+      transition: width 0.3s ease;
+    }
+
+    .header .flex .navbar a:hover::after {
+      width: 100%;
+    }
+
+    #menu-btn {
+      cursor: pointer;
+      color: #194936;
+      font-size: 2.5rem;
+      display: none;
+    }
+
+    /* Welcome section */
+    .welcome-section {
+      max-width: 1200px;
+      margin: 8rem auto 4rem; /* زيادة المسافة العلوية */
+      display: flex;
+      align-items: center;
+      gap: 4rem; /* زيادة المسافة بين النص والصورة */
+      padding: 0 2rem;
+    }
+
+    .welcome-text {
+      flex: 1;
+    }
+
+     .welcome-text h1 {
+        font-size: 4.8rem; /* خط أكبر */
+        color: var(--green);
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+    }
+
+    .welcome-line {
+    font-size: 4.8rem;
+    color: var(--green);
+    font-weight: 800;
+    line-height: 1.1;
+    }
+
+    .typing {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 6rem; /* حجم أكبر لـ RealCodeLab */
+    font-weight: 900;
+    width: 11ch; /* عرض ثابت حسب عدد حروف RealCodeLab */
+    animation: typing 4s steps(11, end) infinite;
+    position: relative;
+    }
+
+    /* المؤشر الوميض باستخدام عنصر وهمي */
+    .typing::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: var(--green);
+    animation: blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+    0% {
+        width: 0;
+    }
+    50% {
+        width: 11ch;
+    }
+    100% {
+        width: 0;
+    }
+    }
+
+    @keyframes blink {
+    50% {
+        opacity: 0;
+    }
+    }
+        
+    
+    .welcome-text p {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .welcome-image {
+      flex: 1.4; /* مساحة أكبر للصورة */
+      height: 300px; /* ارتفاع أكبر */
+      background-color: transparent;
+      border-radius: 0; /* إزالة الحواف */
+    }
+
+    .welcome-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0; /* إزالة الحواف */
+      box-shadow: none; /* إزالة الظل */
+      display: block;
+      transition: none;
+    }
+
+    @media (max-width: 768px) {
+      #menu-btn {
+        display: inline-block;
+      }
+
+      .header .flex .navbar {
+        position: absolute;
+        top: calc(100% + 2rem);
+        left: 0;
+        right: 0;
+        background-color: var(--white-khfif);
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 0.4s ease, opacity 0.4s ease;
+        z-index: 999;
+        border-radius: 1rem; /* الحواف الدائرية للقائمة عند ظهورها */
+      }
+
+      .header .flex .navbar.active {
+        max-height: 500px;
+        opacity: 1;
+      }
+
+      .header .flex .navbar a {
+        display: block;
+        margin: 2rem;
+        opacity: 0;
+        transform: translateY(-10px);
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      .header .flex .navbar.active a {
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .welcome-section {
+        flex-direction: column;
+        margin: 5rem 1.5rem 2rem;
+        gap: 2rem;
+      }
+
+      .welcome-image {
+        width: 100%;
+        height: 200px;
+        flex: unset;
+        border-radius: 0;
+      }
+    }
+
+    @media (max-width: 450px) {
+      html {
+        font-size: 50%;
+      }
+    }
+
+    @media (max-width: 768px) {
+  .welcome-line {
+    font-size: 3.5rem; /* تقليل حجم الخط للعناوين في الهاتف */
+  }
+
+  .typing {
+    font-size: 4.5rem; /* تقليل حجم الخط للنص المتحرك */
+    width: 11ch; /* ثابت حسب عدد الحروف */
+  }
+}
+
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo" >RealCodeLab</div>
-        <div class="humberger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
-        <nav class="nav-bar">
-            <ul>
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="#" >Courses</a></li>
-                <li><a href="#" >Library</a></li>
-                <li><a href="#" >About</a></li>
-            </ul>
-        </nav>
+  <header class="header">
+    <section class="flex">
+      <a href="#home" class="logo">RealCodeLab</a>
+      <nav class="navbar">
+        <a href="#home">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#reviews">Books</a>
+        <a href="#teachers">teacher</a>
+        <a href="#about">About us</a>
+      </nav>
+      <div id="menu-btn" class="fas fa-bars"></div>
+    </section>
+  </header>
+
+  <!-- Welcome Section -->
+  <section class="welcome-section">
     
-    </header>
-    
-   
-<script>
- document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll(".nav-bar ul li a");
+    <div class="welcome-text">
+    <h1 class="welcome-line">
+    Welcome to
+    <br />
+    <span class="typing">RealCodeLab</span>
+    </h1>
+    <p>
+    Welcome to the Moroccan lab, where we will explain in Arabic and Darija courses in the form of videos, as well as books that we have created to help you learn quickly and that you can remember, and all of this in order to provide you with a good workplace.
+    </p>
+    </div>
 
-    links.forEach(link => {
-      link.addEventListener("click", function () {
-        links.forEach(l => l.classList.remove("active"));
-        this.classList.add("active");
-      });
-    });
-  });
- 
- humberger = document.querySelector (".humberger");
- humberger.onclick = function(){
-    navBar = document.querySelector(".nav-bar");
-    navBar.classList.toggle("active");
+    <div class="welcome-image">
+      <img src="xc.png" alt="" />
+    </div>
+  </section>
 
- }
-</script>
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const navbar = document.querySelector('.header .flex .navbar');
 
-
+    menuBtn.onclick = () => {
+      navbar.classList.toggle('active');
+    };
+  </script>
 </body>
+</html>
+
+
