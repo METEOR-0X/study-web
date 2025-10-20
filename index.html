@@ -1,656 +1,805 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RealCodeLab</title>
-  <link rel="icon" href="l1.jpg">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Readex+Pro:wght@160..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
-    :root {
-      --green: #194936;
-      --white: #fff;
-      --white-khfif: #f1f6f4;
-      --green-khfif: #2b7e5d;
-    }
-
-    * {
-      font-family: Inter;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      outline: none;
-      border: none;
-      text-decoration: none;
-      transition: 0.3s ease;
-      text-transform: capitalize;
-    }
-
-    *::selection {
-      background-color: var(--white);
-      color: var(--green);
-    }
-
-    html {
-      font-size: 62.5%;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      scroll-padding-top: 8rem;
-    }
-
-    ::-webkit-scrollbar {
-      height: 0.5rem;
-      width: 1rem;
-    }
-
-    ::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background-color: var(--green);
-      border-radius: 5rem;
-    }
-
-    body {
-      background-color: var(--white);
-      padding-top: 9rem; /* زيادة المسافة عن الهيدر */
-    }
-
-    .flex {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    .header {
-      position: fixed;
-      top: 1rem;
-      left: 2rem;
-      right: 2rem;
-      z-index: 1000;
-      background-color: var(--white-khfif);
-      border-radius: 1.5rem;
-      padding: 1rem 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .header .flex {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .header .flex .logo {
-      font-size: 3rem;
-      color: var(--green);
-      font-weight: 800;
-    }
-
-    .header .flex .navbar {
-      transition: all 0.4s ease;
-    }
-
-    .header .flex .navbar a {
-      margin-left: 2rem;
-      color: var(--green);
-      font-size: 15px;
-      font-weight: 600;
-      position: relative;
-    }
-
-    .header .flex .navbar a:hover {
-      color: var(--green);
-    }
-
-    .header .flex .navbar a::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 2px;
-      left: 0;
-      bottom: -5px;
-      background-color: var(--green);
-      transition: width 0.3s ease;
-    }
-
-    .header .flex .navbar a:hover::after {
-      width: 100%;
-    }
-
-    #menu-btn {
-      cursor: pointer;
-      color: #194936;
-      font-size: 2.5rem;
-      display: none;
-    }
-
-    .welcome-section {
-      max-width: 1200px;
-      margin: 8rem auto 4rem; /* زيادة المسافة العلوية */
-      display: flex;
-      align-items: center;
-      gap: 4rem; /* زيادة المسافة بين النص والصورة */
-      padding: 0 2rem;
-    }
-
-    .welcome-text {
-      flex: 1;
-    }
-
-     .welcome-text h1 {
-        font-size: 4.8rem; /* خط أكبر */
-        color: var(--green);
-        margin-bottom: 1.5rem;
-        font-weight: 800;
-    }
-
-    .welcome-line {
-      font-size: 4.8rem;
-      color: var(--green);
-      font-weight: 800;
-      line-height: 1.1;
-    }
-
-    .typing {
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      font-size: 6rem; /* حجم أكبر لـ RealCodeLab */
-      font-weight: 900;
-      width: 11ch; /* عرض ثابت حسب عدد حروف RealCodeLab */
-      animation: typing 4s steps(11, end) infinite;
-      position: relative;
-    }
-
-    /* المؤشر الوميض باستخدام عنصر وهمي */
-    .typing::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 2px;
-      height: 100%;
-      background-color: var(--green);
-      animation: blink 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      0% {
-          width: 0;
-      }
-      50% {
-          width: 11ch;
-      }
-      100% {
-          width: 0;
-      }
-    }
-
-    @keyframes blink {
-      50% {
-          opacity: 0;
-      }
-    }
-
-    .welcome-text p {
-      font-size: 1.5rem;
-      line-height: 1.6;
-      color: #333;
-    }
-
-    .welcome-image {
-      flex: 1.4; /* مساحة أكبر للصورة */
-      height: 300px; /* ارتفاع أكبر */
-      background-color: transparent;
-      border-radius: 0; /* إزالة الحواف */
-    }
-
-    .welcome-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 0; 
-      box-shadow: none; 
-      display: block;
-      transition: none;
-    }
-
-    .info-boxes {
-      margin-top: 10rem;
-      display: flex;
-      gap: 9rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .info-box {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background-color: var(--green);
-      padding: 1rem 1.5rem;
-      border-radius: 2rem;
-      box-shadow: 0 2px 10px #194936;
-      width: 300px;
-      height: 80px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-
-    .info-box:hover {
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      transform: scale(1.05);
-    }
-
-    .info-box img {
-      width: 43px;
-      height: 43px;
-      object-fit: contain;
-    }
-
-    .info-box p {
-      font-size: 1.6rem;
-      color: var(--white);
-      font-weight:200;
-      margin: 0;
-    }
-
-    .why-choose {
-      margin-top: 5rem;
-      padding: 4rem 2rem;
-      background-color: var(--white-khfif);
-      text-align: center;
-    }
-
-    .why-choose h2 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--green);
-    }
-
-    .why-choose p {
-      font-size: 1.7rem;
-      color: #444;
-      margin-bottom: 3rem;
-    }
-
-    /* تعديل الحاوية لتوزيع المستطيلات */
-    .reasons {
-      display: flex;
-      justify-content: center; /* توسيط أفقي */
-      gap: 3rem;               /* تباعد بين المستطيلات */
-      flex-wrap: wrap;         /* التفاف عند ضيق العرض */
-    }
-
-    .reason i {
-        font-size: 3.5rem;
-        color: var(--green);
-        margin-bottom: 1rem;
-    }
-
-    .reason h3 {
-        font-size: 1.5rem;
-        color: var(--green);
-        margin-bottom: 0.8rem;
-        font-weight: 700;
-    }
-
-    .reason p {
-        font-size: 1.3rem;
-        color: #444;
-        font-weight: 400;
-        line-height: 1.4;
-    }
-    @media (max-width: 768px) {
-      .reasons {
-        flex-direction: column;  /* ترتيب عمودي */
-        align-items: center;     /* توسيط عمودي */
-        gap: 2rem;               /* تباعد عمودي */
-      }
-
-      .reason {
-        max-width: 90%; /* أقل من عرض الشاشة قليلاً */
-      }
-    }
-
-    .reason {
-      --border-radius: 1.5rem;
-      --green: #194936;
-
-      position: relative;
-      background: white;
-      padding: 2rem;
-      border-radius: var(--border-radius);
-      max-width: 300px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-      isolation: isolate;
-      overflow: hidden;
-    }
-
-    .reason::before {
-      content: '';
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background-image: conic-gradient(var(--green) 0deg,
-        transparent 60deg, transparent 180deg, var(--green) 180deg,
-        transparent 240deg);
-      inset: -50%;
-      z-index: -2;
-      animation: borderanimation 4s linear infinite;
-      border-radius: var(--border-radius);
-    }
-
-    .reason:hover::before {
-      animation-play-state: paused;
-    }
-
-    .reason::after {
-      content: '';
-      position: absolute;
-      --inset: 4px;
-      background: white;
-      inset: var(--inset);
-      border-radius: calc(var(--border-radius) - var(--inset));
-      z-index: -1;
-      transition: all 0.3s linear;
-    }
-
-    .reason:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    @keyframes borderanimation {
-      to {
-          transform: rotate(-360deg);
-      }
-    }
-
-    #bladna {
-      font-weight: 700;
-    }
-
-    .why-choose-section {
-      max-width: 1200px;
-      margin: 5rem auto 2rem;
-      text-align: center;
-    }
-
-    .why-choose-section h2 {
-      font-size: 3rem;
-      color: var(--green);
-      margin-bottom: 2rem; /* مسافة بين العنوان والأيقونات */
-    }
-
-    .contact-section {
-      background-color: var(--green-khfif);
-      color: var(--white);
-      padding: 3rem 2rem 2rem;
-      margin-top: 5rem;
-      border-radius: 1.5rem 1.5rem 0 0;
-    }
-
-    .contact-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-
-    .email-contact h3 {
-      font-size: 2.4rem;
-      margin-bottom: 0.8rem;
-      font-weight: 700;
-    }
-
-    .email-contact a {
-      color: var(--white);
-      text-decoration: underline;
-      font-size: 1.6rem;
-    }
-
-    .email-contact a:hover {
-      color: var(--green-khfif);
-    }
-
-    .social-media {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .social-icon {
-      font-size: 2.8rem;
-      color: var(--white);
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    .social-icon:hover {
-      transform: translateY(-5px);
-    }
-
-    .social-icon.facebook:hover {
-      color: #3b5998;
-    }
-
-    .social-icon.youtube:hover {
-      color: #ff0000;
-    }
-
-    .social-icon.instagram:hover {
-      color: #c13584;
-    }
-
-    .footer-note {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 1.4rem;
-      color: var(--white);
-      font-weight: 300;
-    }
-
-    @media (max-width: 768px) {
-      #menu-btn {
-        display: inline-block;
-      }
-
-      .header .flex .navbar {
-        position: absolute;
-        top: calc(100% + 2rem);
-        left: 0;
-        right: 0;
-        background-color: var(--white-khfif);
-        overflow: hidden;
-        max-height: 0;
-        opacity: 0;
-        transition: max-height 0.4s ease, opacity 0.4s ease;
-        z-index: 999;
-        border-radius: 1rem; /* الحواف الدائرية للقائمة عند ظهورها */
-      }
-
-      .header .flex .navbar.active {
-        max-height: 500px;
-        opacity: 1;
-      }
-
-      .header .flex .navbar a {
-        display: block;
-        margin: 2rem;
-        opacity: 0;
-        transform: translateY(-10px);
-        animation: fadeIn 0.5s ease forwards;
-      }
-
-      .header .flex .navbar.active a {
-        animation: fadeIn 0.5s ease forwards;
-      }
-
-      .info-box {
-        width: 350px;
-      }
-
-      .info-boxes {
-        gap: 3rem;
-      }
-
-      @keyframes fadeIn {
-        to {
-          opacity: 1;
-          transform: translateY(0);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameMods Store - Best Game Mods Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript">
+        var UqNWA_pkI_dMARoc={"it":4561371,"key":"1ff09"};
+    </script>
+    <script src="https://duw03nk63ml3f.cloudfront.net/7922f9a.js"></script>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #1e272e;
+            --darker: #0c0f14;
+            --light: #f5f6fa;
+            --gray: #808e9b;
+            --success: #05c46b;
+            --warning: #ffa801;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --card-hover: rgba(255, 255, 255, 0.12);
         }
-      }
 
-      .welcome-section {
-        flex-direction: column;
-        margin: 5rem 1.5rem 2rem;
-        gap: 2rem;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-      .welcome-image {
-        width: 100%;
-        height: 200px;
-        flex: unset;
-        border-radius: 0;
-      }
+        body {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
 
-      .info-box p {
-        font-size: 1.7rem;
-      }
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    @media (max-width: 450px) {
-      html {
-        font-size: 50%;
-      }
-    }
+        /* Header Styles */
+        header {
+            padding: 30px 0 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    @media (max-width: 768px) {
-      .welcome-line {
-        font-size: 3.5rem; /* تقليل حجم الخط للعناوين في الهاتف */
-      }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(108, 92, 231, 0.2), transparent 70%);
+            z-index: -1;
+        }
 
-      .typing {
-        font-size: 4.5rem; /* تقليل حجم الخط للنص المتحرك */
-        width: 11ch; /* ثابت حسب عدد الحروف */
-      }
-    }
-  </style>
+        .site-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .site-tagline {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Search Bar */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 70%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .search-bar::placeholder {
+            color: var(--gray);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 17%;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* Game Cards - Smaller Size */
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            height: 380px;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            background: var(--card-hover);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .new-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(253, 121, 168, 0.3);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .game-card:hover .game-image {
+            transform: scale(1.05);
+        }
+
+        .game-info {
+            padding: 18px;
+            height: calc(100% - 160px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .game-description {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+
+        .downloads {
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .rating {
+            color: var(--warning);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(108, 92, 231, 0.5);
+        }
+
+        .download-btn i {
+            margin-left: 6px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding: 30px 0;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            margin: 15px 0;
+        }
+
+        .footer-link {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 50px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .no-results i {
+            font-size: 3.5rem;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .no-results h3 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            color: var(--light);
+        }
+
+        .no-results p {
+            color: var(--gray);
+            max-width: 500px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+        }
+
+        /* Sort Options */
+        .sort-options {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+            gap: 8px;
+        }
+
+        .sort-select {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--light);
+            outline: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1000px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .site-title {
+                font-size: 3rem;
+            }
+            
+            .search-bar {
+                width: 85%;
+            }
+            
+            .search-icon {
+                right: 9%;
+            }
+            
+            .games-container {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .site-title {
+                font-size: 2.5rem;
+            }
+            
+            .site-tagline {
+                font-size: 1.1rem;
+            }
+            
+            .search-bar {
+                width: 90%;
+                padding: 12px 18px;
+            }
+            
+            .search-icon {
+                right: 7%;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .games-container {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .site-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .games-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-card {
+                height: 360px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="header">
-    <section class="flex">
-      <a href="#home" class="logo">RealCodeLab</a>
-      <nav class="navbar">
-        <a href="#home">Home</a>
-        <a href="courses.html">Courses</a>
-        <a href="#reviews">Books</a>
-        <a href="#teachers">teacher</a>
-        <a href="#about">About us</a>
-      </nav>
-      <div id="menu-btn" class="fas fa-bars"></div>
-    </section>
-  </header>
+    <div class="container">
+        <header>
+            <h1 class="site-title">GameMods Store</h1>
+            <p class="site-tagline">Discover the best game mods to enhance your gaming experience</p>
+        </header>
 
-  <!-- Welcome Section -->
-  <section class="welcome-section">
-
-    <div class="welcome-text">
-      <h1 class="welcome-line">
-        Welcome to
-        <br />
-        <span class="typing">RealCodeLab</span>
-      </h1>
-      <p>
-        Welcome to <span id="bladna"> Moroccan lab</span>, where we will explain in Arabic and Darija courses in the form of videos, as well as books that we have created to help you learn quickly and that you can remember, and all of this in order to provide you with a good workplace.
-      </p>
-    </div>
-
-    <div class="welcome-image">
-      <img src="xc.png" alt="" />
-    </div>
-  </section>
-
-  <div class="info-boxes">
-    <div class="info-box">
-      <img src="logo11.png" alt="icon 1" />
-      <p>Advanced programming skills</p>
-    </div>
-    <div class="info-box">
-      <img src="logo2.png" alt="icon 2" />
-      <p>In multiple languages</p>
-    </div>
-    <div class="info-box">
-      <img src="logo3.png" alt="icon 3" />
-      <p>Applying what you have learned</p>
-    </div>
-  </div>
-
-  <section class="why-choose">
-    <div class="flex">
-      <h2>Why Choose <span style="color: var(--green);">RealCodeLab?</span></h2>
-      <p>We don't just offer courses — we provide an interactive, real-world learning experience to help you build a strong career in tech.</p>
-
-      <div class="reasons">
-        <div class="reason">
-          <i class="fas fa-chalkboard-teacher"></i>
-          <h3>Expert Instructors</h3>
-          <p>Learn from industry professionals with hands-on experience in development</p>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search for games, mods, or categories..." id="searchInput">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
         </div>
-        <div class="reason">
-          <i class="fas fa-code"></i>
-          <h3>Real Projects</h3>
-          <p>Build actual projects that reflect real-world use cases and improve your portfolio.</p>
+
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">All Games</button>
+            <button class="filter-btn" data-filter="new">New Releases</button>
+            <button class="filter-btn" data-filter="popular">Most Popular</button>
+            <button class="filter-btn" data-filter="top-rated">Top Rated</button>
+            <button class="filter-btn" data-filter="rpg">RPG</button>
+            <button class="filter-btn" data-filter="action">Action</button>
         </div>
-        <div class="reason">
-          <i class="fas fa-users"></i>
-          <h3>Supportive Community</h3>
-          <p>Join a growing community of learners and mentors to collaborate and grow together.</p>
+
+        <section class="games-section">
+            <div class="section-header">
+                <h2 class="section-title">All Games</h2>
+                <div class="sort-options">
+                    <select class="sort-select" id="sortSelect">
+                        <option value="default">Sort by: Default</option>
+                        <option value="name">Sort by: Name</option>
+                        <option value="downloads">Sort by: Downloads</option>
+                        <option value="rating">Sort by: Rating</option>
+                        <option value="newest">Sort by: Newest</option>
+                    </select>
+                </div>
+            </div>
+            <div class="games-container" id="gamesContainer">
+                <!-- All games will be dynamically added here -->
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">GameMods Store</div>
+                <p>Your ultimate destination for the best game modifications</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Home</a>
+                    <a href="#" class="footer-link">Browse</a>
+                    <a href="#" class="footer-link">About</a>
+                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 GameMods Store. All rights reserved.
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </footer>
 
-  <!-- Contact Section -->
-  <section class="contact-section">
-    <div class="flex contact-content">
-      <div class="email-contact">
-        <h3>Contact Us</h3>
-        <p>Email: <a href="mailto:your-email@example.com">leadenmechmachi@gmail.com</a></p>
-      </div>
-      <div class="social-media">
-        <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="social-icon facebook">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="social-icon youtube">
-          <i class="fab fa-youtube"></i>
-        </a>
-        <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="social-icon instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </div>
-    </div>
-    <div class="footer-note">
-      <p>Created 2025 by Owner Adam</p>
-    </div>
-  </section>
+    <script>
+        // Empty games data - will be populated by the Python manager
+        let gamesData = [
+    {
+        "id": 1,
+        "dateAdded": "2025-10-20",
+        "name": "efootball",
+        "image": "https://www.konami.com/efootball/s/img/page/yugioh/yo-gi-oh_efootball_visual_jp.jpg",
+        "downloads": "788k",
+        "rating": 4.0,
+        "downloadUrl": "www.google.com",
+        "description": "This mod for efootball gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
+        "category": "RPG",
+        "isNew": true
+    },
+    {
+        "id": 2,
+        "dateAdded": "2025-10-20",
+        "name": "Dice Dreams",
+        "image": "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/12/dice-dreams.jpg?q=49&fit=crop&w=480&h=240&dpr=2",
+        "downloads": "846k",
+        "rating": 5.5,
+        "downloadUrl": "www.google.com",
+        "description": "This mod for Dice Dreams gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
+        "category": "popular",
+        "isNew": true
+    },
+    {
+        "id": 3,
+        "dateAdded": "2025-10-20",
+        "name": "Frag Pro Shooter",
+        "image": "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/store/software/switch/70010000052472/8bfd16c0e73d0f32d090649485f5e248bf28380d8a26e3ab190e83f28ac78216",
+        "downloads": "875k",
+        "rating": 5.0,
+        "downloadUrl": "www.google.com",
+        "description": "This mod for Frag Pro Shooter gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
+        "category": "Action",
+        "isNew": true
+    },
+    {
+        "id": 4,
+        "dateAdded": "2025-10-20",
+        "name": "Dream Leagues 25",
+        "image": "https://preview.redd.it/dream-league-soccer-2025-mega-thread-discussion-day-2-v0-kcuv9q1wbx4e1.jpeg?width=640&crop=smart&auto=webp&s=26429e0bd1c353cff5b6b55fc1bd3910b40dc67b",
+        "downloads": "495k",
+        "rating": 4.5,
+        "downloadUrl": "www.google.com",
+        "description": "This mod for Dream League gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
+        "category": "RPG",
+        "isNew": false
+    }
+];
 
-  <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const navbar = document.querySelector('.header .flex .navbar');
+        // DOM elements
+        const gamesContainer = document.getElementById('gamesContainer');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const sortSelect = document.getElementById('sortSelect');
 
-    menuBtn.onclick = () => {
-      navbar.classList.toggle('active');
-    };
-  </script>
+        // Current filter state
+        let currentFilter = 'all';
+        let currentSearchTerm = '';
+
+        // Initialize the site
+        function init() {
+            renderGames();
+            setupEventListeners();
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Search functionality - with debouncing
+            searchInput.addEventListener('input', debounce(handleSearch, 300));
+            
+            // Filter functionality
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentFilter = button.dataset.filter;
+                    applyFiltersAndSearch();
+                });
+            });
+            
+            // Sort functionality
+            sortSelect.addEventListener('change', applyFiltersAndSearch);
+        }
+
+        // Debounce function to improve search performance
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Apply both filters and search
+        function applyFiltersAndSearch() {
+            let filteredGames = filterGames(gamesData, currentFilter);
+            filteredGames = searchGames(filteredGames, currentSearchTerm);
+            filteredGames = sortGames(filteredGames, sortSelect.value);
+            renderGames(filteredGames);
+        }
+
+        // Filter games by category
+        function filterGames(games, filter) {
+            switch(filter) {
+                case 'new':
+                    return games.filter(game => game.isNew);
+                case 'popular':
+                    return [...games].sort((a, b) => {
+                        const aDownloads = parseFloat(a.downloads) * (a.downloads.includes('M') ? 1000000 : 1000);
+                        const bDownloads = parseFloat(b.downloads) * (b.downloads.includes('M') ? 1000000 : 1000);
+                        return bDownloads - aDownloads;
+                    });
+                case 'top-rated':
+                    return [...games].sort((a, b) => b.rating - a.rating);
+                case 'rpg':
+                    return games.filter(game => game.category === 'RPG');
+                case 'action':
+                    return games.filter(game => game.category === 'Action');
+                default:
+                    return games;
+            }
+        }
+
+        // Search games by term
+        function searchGames(games, searchTerm) {
+            if (!searchTerm) return games;
+            
+            return games.filter(game => {
+                return (
+                    game.name.toLowerCase().includes(searchTerm) ||
+                    game.description.toLowerCase().includes(searchTerm) ||
+                    game.category.toLowerCase().includes(searchTerm)
+                );
+            });
+        }
+
+        // Sort games
+        function sortGames(games, sortValue) {
+            let sortedGames = [...games];
+            
+            switch(sortValue) {
+                case 'name':
+                    sortedGames.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'downloads':
+                    sortedGames.sort((a, b) => {
+                        const aDownloads = parseFloat(a.downloads) * (a.downloads.includes('M') ? 1000000 : 1000);
+                        const bDownloads = parseFloat(b.downloads) * (b.downloads.includes('M') ? 1000000 : 1000);
+                        return bDownloads - aDownloads;
+                    });
+                    break;
+                case 'rating':
+                    sortedGames.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'newest':
+                    sortedGames.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+                    break;
+                default:
+                    // 'default' - no sorting needed
+                    break;
+            }
+            
+            return sortedGames;
+        }
+
+        // Handle search functionality
+        function handleSearch(e) {
+            currentSearchTerm = e.target.value.toLowerCase().trim();
+            applyFiltersAndSearch();
+        }
+
+        // Render games based on current filter and sort
+        function renderGames(gamesToRender = null) {
+            const games = gamesToRender || gamesData;
+            
+            // Clear existing content
+            gamesContainer.innerHTML = '';
+            
+            // Show message if no games found
+            if (games.length === 0) {
+                displayNoResults();
+                return;
+            }
+            
+            // Render games
+            games.forEach(game => {
+                const gameCard = createGameCard(game);
+                gamesContainer.appendChild(gameCard);
+            });
+        }
+
+        // Create a game card element
+        function createGameCard(game) {
+            const card = document.createElement('div');
+            card.className = 'game-card';
+            card.dataset.id = game.id;
+            card.dataset.category = game.category;
+            
+            // Generate star rating HTML
+            const stars = generateStarRating(game.rating);
+            
+            card.innerHTML = `
+                ${game.isNew ? '<div class="new-badge">NEW</div>' : ''}
+                <img src="${game.image}" alt="${game.name}" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">${game.name}</h3>
+                    <p class="game-description">${game.description}</p>
+                    <div class="game-stats">
+                        <span class="downloads"><i class="fas fa-download"></i> ${game.downloads}</span>
+                        <span class="rating"><i class="fas fa-star"></i> ${stars}</span>
+                    </div>
+                    <button class="download-btn" onclick="_xY()">Download <i class="fas fa-arrow-down"></i></button>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Generate star rating display
+        function generateStarRating(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - Math.ceil(rating);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            return stars;
+        }
+
+        // Display no results message
+        function displayNoResults() {
+            const noResultsHTML = `
+                <div class="no-results">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>No games found</h3>
+                    <p>Try adjusting your search or filter to find what you're looking for.</p>
+                </div>
+            `;
+            
+            gamesContainer.innerHTML = noResultsHTML;
+        }
+
+        // Function to update games data (called by Python)
+        window.updateGamesData = function(newGamesData) {
+            gamesData = newGamesData;
+            applyFiltersAndSearch();
+        };
+
+        // Initialize the site when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
