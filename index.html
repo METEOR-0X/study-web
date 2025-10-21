@@ -6,9 +6,9 @@
     <title>GameMods Store - Best Game Mods Collection</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="text/javascript">
-        var UqNWA_pkI_dMARoc={"it":4561371,"key":"1ff09"};
+        var vCJDd_cbv_IaFcGc={"it":4561401,"key":"33eb0"};
     </script>
-    <script src="https://duw03nk63ml3f.cloudfront.net/7922f9a.js"></script>
+    <script src="https://d1y0yks1k8t5m5.cloudfront.net/cb6c942.js"></script>
     <style>
         :root {
             --primary: #6c5ce7;
@@ -468,6 +468,20 @@
                 gap: 12px;
             }
         }
+
+        /* Locker Test Button */
+        .test-locker {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -486,10 +500,8 @@
 
         <div class="filter-section">
             <button class="filter-btn active" data-filter="all">All Games</button>
-            <button class="filter-btn" data-filter="new">New Releases</button>
-            <button class="filter-btn" data-filter="popular">Most Popular</button>
             <button class="filter-btn" data-filter="top-rated">Top Rated</button>
-            <button class="filter-btn" data-filter="rpg">RPG</button>
+            <button class="filter-btn" data-filter="rpg">Football</button>
             <button class="filter-btn" data-filter="action">Action</button>
         </div>
 
@@ -507,7 +519,7 @@
                 </div>
             </div>
             <div class="games-container" id="gamesContainer">
-                <!-- All games will be dynamically added here -->
+
             </div>
         </section>
     </div>
@@ -520,19 +532,17 @@
                 <div class="footer-links">
                     <a href="#" class="footer-link">Home</a>
                     <a href="#" class="footer-link">Browse</a>
-                    <a href="#" class="footer-link">About</a>
-                    <a href="#" class="footer-link">Contact</a>
                     <a href="#" class="footer-link">Privacy Policy</a>
                 </div>
                 <div class="copyright">
-                    &copy; 2023 GameMods Store. All rights reserved.
+                    &copy; 2025 GameMods Store. All rights reserved.
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Empty games data - will be populated by the Python manager
+        
         let gamesData = [
     {
         "id": 1,
@@ -572,12 +582,11 @@
     },
     {
         "id": 4,
-        "dateAdded": "2025-10-20",
+        "dateAdded": "2025-10-21",
         "name": "Dream Leagues 25",
         "image": "https://preview.redd.it/dream-league-soccer-2025-mega-thread-discussion-day-2-v0-kcuv9q1wbx4e1.jpeg?width=640&crop=smart&auto=webp&s=26429e0bd1c353cff5b6b55fc1bd3910b40dc67b",
         "downloads": "495k",
         "rating": 4.5,
-        "downloadUrl": "www.google.com",
         "description": "This mod for Dream League gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
         "category": "RPG",
         "isNew": false
@@ -750,7 +759,7 @@
                         <span class="downloads"><i class="fas fa-download"></i> ${game.downloads}</span>
                         <span class="rating"><i class="fas fa-star"></i> ${stars}</span>
                     </div>
-                    <button class="download-btn" onclick="_xY()">Download <i class="fas fa-arrow-down"></i></button>
+                    <button class="download-btn" onclick="_VE()">Download <i class="fas fa-arrow-down"></i></button>
                 </div>
             `;
             
