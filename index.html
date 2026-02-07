@@ -1,825 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameMods Store - Best Game Mods Collection</title>
+    <title>DIRASA | منصة الدراسة الجامعية</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <script type="text/javascript">
-    var cUYSo_xlg_BqfyGc={"it":4561401,"key":"33eb0"};
-</script>
-<script src="https://duw03nk63ml3f.cloudfront.net/5afc1b3.js"></script>
+
     <style>
+        /* ================== 1. المتغيرات والتأسيس ================== */
         :root {
-            --primary: #6c5ce7;
-            --secondary: #a29bfe;
-            --accent: #fd79a8;
-            --dark: #1e272e;
-            --darker: #0c0f14;
-            --light: #f5f6fa;
-            --gray: #808e9b;
-            --success: #05c46b;
-            --warning: #ffa801;
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --card-hover: rgba(255, 255, 255, 0.12);
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(15, 23, 42, 0.85);
+            --menu-bg: #1e293b;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.6);
+            --accent: #10b981;
+            --text-light: #f1f5f9;
+            --text-gray: #94a3b8;
+            --border-light: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.03);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'IBM Plex Sans Arabic', sans-serif; }
 
         body {
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
-            color: var(--light);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             min-height: 100vh;
-            line-height: 1.6;
+            background-image: radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 50%);
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        a { text-decoration: none; transition: 0.3s; }
+        ul { list-style: none; }
 
-        /* Header Styles */
-        header {
-            padding: 30px 0 15px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+        /* ================== 2. شاشة التحميل (Preloader) ================== */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; }
+        #preloader.hide { opacity: 0; visibility: hidden; }
+        .atom-container { position: relative; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .nucleus { position: absolute; width: 15px; height: 15px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 15px var(--primary); z-index: 2; }
+        .orbit { position: absolute; width: 100%; height: 100%; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 50%; }
+        .electron { position: absolute; top: -4px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 8px var(--accent); }
+        .orbit-1 { animation: spin 1.5s linear infinite; }
+        .orbit-2 { animation: spin 2s linear infinite reverse; transform: rotateX(60deg) rotateY(60deg); }
+        .orbit-3 { animation: spin 2.5s linear infinite; transform: rotateX(60deg) rotateY(-60deg); }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(108, 92, 231, 0.2), transparent 70%);
-            z-index: -1;
-        }
+        /* ================== 3. الهيدر (Header) ================== */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); position: sticky; top: 0; z-index: 1000; height: 70px; }
+        .logo { font-size: 1.6rem; font-weight: 800; color: var(--text-light); letter-spacing: 1px; background: linear-gradient(to right, #fff, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-container { display: flex; align-items: center; gap: 30px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--text-gray); font-weight: 500; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--primary); }
+        
+        /* زر المساهمة */
+        .btn-contribute { cursor: pointer; position: relative; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white !important; padding: 10px 24px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 15px var(--primary-glow); border: 1px solid rgba(255, 255, 255, 0.1); animation: pulse-glow 2s infinite ease-in-out; }
+        .btn-contribute:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 0 25px var(--primary-glow), 0 0 10px var(--primary); background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+        .menu-toggle { display: none; font-size: 1.4rem; color: var(--text-light); cursor: pointer; }
 
-        .site-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 10px;
-            text-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-            letter-spacing: -1px;
-        }
+        /* ================== 4. القسم الرئيسي (Hero) ================== */
+        .hero { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 5%; position: relative; }
+        .status-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); padding: 8px 20px; border-radius: 50px; color: #d1fae5; font-size: 0.85rem; font-weight: 500; margin-bottom: 25px; backdrop-filter: blur(5px); max-width: 90%; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .status-dot { width: 8px; height: 8px; background-color: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); animation: blink 2s infinite; flex-shrink: 0; }
+        
+        .glass-hero-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 50px 40px; border-radius: 30px; text-align: center; max-width: 800px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); animation: slideUp 0.8s ease-out forwards; }
+        .glass-hero-card h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 15px; background: linear-gradient(to right, #ffffff, #e2e8f0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-hero-card p { font-size: 1.1rem; color: var(--text-gray); line-height: 1.6; margin-bottom: 35px; max-width: 90%; margin-left: auto; margin-right: auto; }
+        .btn-glass-blue { display: inline-flex; align-items: center; gap: 10px; padding: 12px 35px; background: rgba(59, 130, 246, 0.15); border: 1px solid var(--primary); backdrop-filter: blur(5px); border-radius: 50px; color: var(--primary); font-weight: 600; font-size: 1rem; }
+        .btn-glass-blue:hover { background: var(--primary); color: white; box-shadow: 0 0 20px var(--primary-glow); transform: translateY(-3px); }
 
-        .site-tagline {
-            font-size: 1.2rem;
-            color: var(--secondary);
-            margin-bottom: 20px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        /* ================== 5. المميزات (Features) ================== */
+        .features-section { padding: 20px 5% 80px 5%; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
+        .feature-card { background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 20px; padding: 30px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden; backdrop-filter: blur(5px); }
+        .feature-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.05); border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+        .feature-card h3 { color: var(--text-light); font-size: 1.3rem; margin-bottom: 10px; font-weight: 600; }
+        .feature-card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; }
+        .icon-wrapper { width: 70px; height: 70px; margin: 0 auto 20px auto; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; }
+        .icon-pdf { background: rgba(239, 68, 68, 0.1); color: #f87171; box-shadow: 0 0 20px rgba(239, 68, 68, 0.1); }
+        .icon-share { background: rgba(59, 130, 246, 0.1); color: #60a5fa; box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+        .icon-easy { background: rgba(16, 185, 129, 0.1); color: #34d399; box-shadow: 0 0 20px rgba(16, 185, 129, 0.1); }
 
-        /* Search Bar */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
+        /* ================== 6. رسالة المطور (Founder) ================== */
+        .founder-message-section { padding: 0 5% 100px 5%; display: flex; justify-content: center; }
+        .founder-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 25px; padding: 40px; max-width: 900px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); }
+        .quote-bg-icon { position: absolute; top: -10px; right: 20px; font-size: 10rem; color: rgba(255, 255, 255, 0.02); z-index: 0; pointer-events: none; }
+        .founder-avatar { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), #2563eb); border-radius: 50%; margin: 0 auto 20px auto; display: flex; justify-content: center; align-items: center; font-size: 2rem; color: white; box-shadow: 0 0 20px var(--primary-glow); position: relative; z-index: 1; }
+        .founder-card h2 { font-size: 1.5rem; margin-bottom: 20px; color: var(--text-light); position: relative; z-index: 1; }
+        .founder-text { font-size: 1.1rem; color: var(--text-gray); line-height: 1.8; margin-bottom: 25px; position: relative; z-index: 1; font-style: italic; }
+        .founder-sign { font-weight: 700; color: var(--primary); font-size: 1rem; position: relative; z-index: 1; }
 
-        .search-bar {
-            width: 70%;
-            padding: 15px 20px;
-            border-radius: 50px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+        /* ================== 7. نافذة الرفع الاحترافية (New Modal Style) ================== */
+        .modal-overlay {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
+            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;
         }
-
-        .search-bar:focus {
-            border-color: var(--primary);
-            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.3);
-        }
-
-        .search-bar::placeholder {
-            color: var(--gray);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 17%;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            font-size: 1.1rem;
-        }
-
-        /* Filter Section */
-        .filter-section {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 16px;
-            border-radius: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.3);
-            color: var(--light);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        /* Section Headers */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 40px 0 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -14px;
-            left: 0;
-            width: 70px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-
-        /* Game Cards - Smaller Size */
-        .games-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-
-        .game-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            height: 380px;
-        }
-
-        .game-card:hover {
-            transform: translateY(-10px);
-            background: var(--card-hover);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .new-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--accent);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            z-index: 2;
-            box-shadow: 0 4px 12px rgba(253, 121, 168, 0.3);
-        }
-
-        .game-image {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .game-card:hover .game-image {
-            transform: scale(1.05);
-        }
-
-        .game-info {
-            padding: 18px;
-            height: calc(100% - 160px);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .game-title {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            font-weight: 700;
-            line-height: 1.3;
-        }
-
-        .game-description {
-            color: var(--gray);
-            margin-bottom: 12px;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            flex-grow: 1;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .game-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-        }
-
-        .downloads {
-            color: var(--secondary);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .rating {
-            color: var(--warning);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .download-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            text-decoration: none;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(108, 92, 231, 0.5);
-        }
-
-        .download-btn i {
-            margin-left: 6px;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 60px;
-            padding: 30px 0;
-            background: rgba(0, 0, 0, 0.3);
+        .modal-overlay.show { display: flex; opacity: 1; }
+        
+        .modal-content {
+            background: #1e293b; border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 20px; padding: 25px;
+            width: 90%; max-width: 550px; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
         }
+        .modal-overlay.show .modal-content { transform: scale(1); }
+        .close-btn { position: absolute; top: 15px; right: 20px; color: var(--text-gray); font-size: 28px; cursor: pointer; transition: 0.2s; z-index: 10; }
+        .close-btn:hover { color: var(--primary); }
 
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
+        /* تنسيق النموذج الجديد */
+        .modal-header h2 { color: var(--text-light); display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px; }
+        .modal-header p { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 25px; }
+        .custom-form { display: flex; flex-direction: column; gap: 15px; text-align: right; }
+        .input-group { display: flex; gap: 10px; }
+        
+        .glass-input {
+            width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 15px; border-radius: 10px; color: #fff; outline: none; transition: 0.3s;
         }
+        .glass-input:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.1); }
 
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        /* منطقة السحب والإفلات */
+        .file-upload-wrapper { position: relative; height: 130px; margin-top: 5px; }
+        .file-input { position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 2; top: 0; right: 0; }
+        .file-upload-box {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: 2px dashed rgba(255, 255, 255, 0.2); border-radius: 15px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: 0.3s; background: rgba(255, 255, 255, 0.02);
         }
+        .file-input:hover + .file-upload-box, .file-input:focus + .file-upload-box {
+            border-color: var(--primary); background: rgba(59, 130, 246, 0.05);
+        }
+        .icon-upload { font-size: 2rem; color: var(--text-gray); margin-bottom: 10px; transition: 0.3s; }
+        .file-input:hover + .file-upload-box .icon-upload { color: var(--primary); transform: translateY(-5px); }
+        .file-name-display { font-size: 0.85rem; color: var(--accent); margin-top: 5px; font-weight: 500; }
 
-        .footer-links {
-            display: flex;
-            gap: 25px;
-            margin: 15px 0;
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary), #2563eb); color: white; border: none; padding: 12px; border-radius: 10px;
+            font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--primary-glow); }
 
-        .footer-link {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .footer-link:hover {
-            color: var(--primary);
-        }
-
-        .copyright {
-            color: var(--gray);
-            font-size: 0.85rem;
-        }
-
-        /* No Results Message */
-        .no-results {
-            text-align: center;
-            padding: 50px 20px;
-            grid-column: 1 / -1;
-        }
-
-        .no-results i {
-            font-size: 3.5rem;
-            color: var(--gray);
-            margin-bottom: 15px;
-        }
-
-        .no-results h3 {
-            font-size: 1.6rem;
-            margin-bottom: 12px;
-            color: var(--light);
-        }
-
-        .no-results p {
-            color: var(--gray);
-            max-width: 500px;
-            margin: 0 auto;
-            font-size: 0.95rem;
-        }
-
-        /* Sort Options */
-        .sort-options {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 15px;
-            gap: 8px;
-        }
-
-        .sort-select {
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.3);
-            color: var(--light);
-            outline: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .container {
-                max-width: 1000px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .site-title {
-                font-size: 3rem;
-            }
-            
-            .search-bar {
-                width: 85%;
-            }
-            
-            .search-icon {
-                right: 9%;
-            }
-            
-            .games-container {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            }
-        }
+        /* ================== 8. الأنيميشن والتجاوب ================== */
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 10px var(--primary-glow); } 50% { box-shadow: 0 0 20px var(--primary-glow), 0 0 5px var(--primary); } }
+        @keyframes blink { 0% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.4; transform: scale(1); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spin { 0% { transform: rotateZ(0deg) rotateX(65deg); } 100% { transform: rotateZ(360deg) rotateX(65deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 768px) {
-            .site-title {
-                font-size: 2.5rem;
-            }
-            
-            .site-tagline {
-                font-size: 1.1rem;
-            }
-            
-            .search-bar {
-                width: 90%;
-                padding: 12px 18px;
-            }
-            
-            .search-icon {
-                right: 7%;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-            
-            .games-container {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            }
-        }
-
-        @media (max-width: 576px) {
-            .site-title {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-            }
-            
-            .games-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .game-card {
-                height: 360px;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 12px;
-            }
-        }
-
-        /* Locker Test Button */
-        .test-locker {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
+            .menu-toggle { display: block; }
+            .nav-container { position: absolute; top: 70px; left: 0; width: 100%; background-color: var(--menu-bg); border-bottom: 1px solid rgba(255,255,255,0.05); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); flex-direction: column; align-items: center; gap: 15px; padding: 20px 0; display: none; }
+            .nav-container.active { display: flex; animation: fadeIn 0.3s ease; }
+            .nav-links { flex-direction: column; align-items: center; gap: 15px; width: 100%; }
+            .nav-links a { font-size: 1rem; width: 100%; text-align: center; padding: 5px 0; display: block; }
+            .btn-contribute { width: 85%; justify-content: center; margin-top: 5px; animation: none; box-shadow: 0 4px 15px var(--primary-glow); }
+            .glass-hero-card { padding: 30px 20px; }
+            .glass-hero-card h1 { font-size: 1.8rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .founder-card { padding: 30px 20px; }
+            .quote-bg-icon { font-size: 6rem; top: 10px; right: 10px; }
+            .founder-text { font-size: 1rem; }
+            .input-group { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1 class="site-title">GameMods Store</h1>
-            <p class="site-tagline">Discover the best game mods to enhance your gaming experience</p>
-        </header>
 
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search for games, mods, or categories..." id="searchInput">
-            <div class="search-icon">
-                <i class="fas fa-search"></i>
-            </div>
+    <div id="preloader">
+        <div class="atom-container">
+            <div class="nucleus"></div>
+            <div class="orbit orbit-1"><div class="electron"></div></div>
+            <div class="orbit orbit-2"><div class="electron"></div></div>
+            <div class="orbit orbit-3"><div class="electron"></div></div>
         </div>
-
-        <div class="filter-section">
-            <button class="filter-btn active" data-filter="all">All Games</button>
-            <button class="filter-btn" data-filter="top-rated">Top Rated</button>
-            <button class="filter-btn" data-filter="rpg">Football</button>
-            <button class="filter-btn" data-filter="action">Action</button>
-        </div>
-
-        <section class="games-section">
-            <div class="section-header">
-                <h2 class="section-title">All Games</h2>
-                <div class="sort-options">
-                    <select class="sort-select" id="sortSelect">
-                        <option value="default">Sort by: Default</option>
-                        <option value="name">Sort by: Name</option>
-                        <option value="downloads">Sort by: Downloads</option>
-                        <option value="rating">Sort by: Rating</option>
-                        <option value="newest">Sort by: Newest</option>
-                    </select>
-                </div>
-            </div>
-            <div class="games-container" id="gamesContainer">
-
-            </div>
-        </section>
+        <p style="color: #94a3b8;">جاري التجهيز...</p>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">GameMods Store</div>
-                <p>Your ultimate destination for the best game modifications</p>
-                <div class="footer-links">
-                    <a href="#" class="footer-link">Home</a>
-                    <a href="#" class="footer-link">Browse</a>
-                    <a href="#" class="footer-link">Privacy Policy</a>
-                </div>
-                <div class="copyright">
-                    &copy; 2025 GameMods Store. All rights reserved.
-                </div>
+    <header>
+        <div class="logo">DIRASA</div>
+        <div class="menu-toggle" id="menu-btn"><i class="fa-solid fa-bars"></i></div>
+        <nav class="nav-container" id="nav-menu">
+            <ul class="nav-links">
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="#">الدروس</a></li>
+                <li><a href="#">الامتحانات</a></li>
+            </ul>
+            <a href="#" class="btn-contribute">ساهم بملف <i class="fa-solid fa-cloud-arrow-up"></i></a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            جاري العمل على رفع المزيد من الدروس، ويمكنكم المساهمة أيضاً
+        </div>
+        <div class="glass-hero-card">
+            <h1>كل ما تحتاجه من دروس و تمارين تطبيقية</h1>
+            <p>منصة تعليمية تساعدك على الفهم والتطبيق خطوة بخطوة، بطريقة بسيطة وسهلة</p>
+            <a href="#" class="btn-glass-blue">
+                التصفح في المكتبة <i class="fa-solid fa-arrow-left-long"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-wrapper icon-pdf"><i class="fa-regular fa-file-pdf"></i></div>
+                <h3>ملفات عالية الجودة</h3>
+                <p>مكتبة ضخمة من الدروس والتمارين بصيغة PDF واضحة ومنظمة، جاهزة للتحميل والطباعة فوراً.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper icon-share"><i class="fa-solid fa-share-nodes"></i></div>
+                <h3>شارك ملخصاتك</h3>
+                <p>ساهم في مساعدة زملائك من خلال رفع ملخصاتك الخاصة، وكن جزءاً من مجتمع الطلاب المتفوقين.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper icon-easy"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <h3>بيئة سهلة ومريحة</h3>
+                <p>واجهة مصممة بعناية لتجعل الوصول للمعلومة سريعاً وبسيطاً، بعيداً عن التعقيد وتشتت الانتباه.</p>
             </div>
         </div>
-    </footer>
+    </section>
+
+    <section class="founder-message-section">
+        <div class="founder-card">
+            <i class="fa-solid fa-quote-right quote-bg-icon"></i>
+            <div class="founder-avatar">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <h2>رسالة من المطور</h2>
+            <p class="founder-text">
+                " مرحباً بك في موقعنا. موقع تم إنشاؤه من طرف طالب جامعي لتسهيل البحث عن الدروس لأقصى حد.
+                ويمكنك أنت كذلك مشاركة الملخصات والدروس معنا، وهذا طبعاً تحت صيانتنا ومراجعتنا،
+                بحيث سيتم معالجة ملفاتكم ثم نشرها على موقعنا لاستفادة الجميع. شكراً على وقتك! "
+            </p>
+            <div class="founder-sign">DIRASA Developer</div>
+        </div>
+    </section>
+
+    <div id="uploadModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-cloud-arrow-up"></i> رفع ملف جديد</h2>
+                <p>ساهم في إثراء المحتوى. سيتم مراجعة الملف قبل نشره.</p>
+            </div>
+            
+            <form action="https://formsubmit.co/leadenmechmachi@gmail.com" method="POST" enctype="multipart/form-data" class="custom-form">
+                
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_subject" value="مساهمة جديدة في موقع DIRASA!">
+                <input type="hidden" name="_autoresponse" value="شكراً لمساهمتك! وصلنا ملفك وسنراجعه قريباً.">
+
+                <div class="input-group">
+                    <input type="text" name="student_name" placeholder="الاسم (اختياري)" class="glass-input">
+                    <input type="text" name="module_name" placeholder="اسم المادة / المقياس *" required class="glass-input">
+                </div>
+
+                <div class="file-upload-wrapper">
+                    <input type="file" name="attachment" id="file-input" class="file-input" required accept=".pdf,.docx,.doc,.pptx">
+                    <div class="file-upload-box">
+                        <i class="fa-solid fa-file-import icon-upload"></i>
+                        <p>اضغط هنا لاختيار ملف أو اسحبه هنا</p>
+                        <span id="file-name" class="file-name-display">لم يتم اختيار ملف</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">إرسال الملف <i class="fa-regular fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
 
     <script>
-        
-        let gamesData = [
-    {
-        "id": 1,
-        "dateAdded": "2025-10-20",
-        "name": "efootball",
-        "image": "https://www.konami.com/efootball/s/img/page/yugioh/yo-gi-oh_efootball_visual_jp.jpg",
-        "downloads": "788k",
-        "rating": 4.0,
-        "downloadUrl": "www.google.com",
-        "description": "This mod for efootball gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
-        "category": "RPG",
-        "isNew": true
-    },
-    {
-        "id": 2,
-        "dateAdded": "2025-10-20",
-        "name": "Dice Dreams",
-        "image": "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/12/dice-dreams.jpg?q=49&fit=crop&w=480&h=240&dpr=2",
-        "downloads": "846k",
-        "rating": 5.5,
-        "downloadUrl": "www.google.com",
-        "description": "This mod for Dice Dreams gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
-        "category": "popular",
-        "isNew": true
-    },
-    {
-        "id": 3,
-        "dateAdded": "2025-10-20",
-        "name": "Frag Pro Shooter",
-        "image": "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/store/software/switch/70010000052472/8bfd16c0e73d0f32d090649485f5e248bf28380d8a26e3ab190e83f28ac78216",
-        "downloads": "875k",
-        "rating": 5.0,
-        "downloadUrl": "www.google.com",
-        "description": "This mod for Frag Pro Shooter gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
-        "category": "Action",
-        "isNew": true
-    },
-    {
-        "id": 4,
-        "dateAdded": "2025-10-21",
-        "name": "Dream Leagues 25",
-        "image": "https://preview.redd.it/dream-league-soccer-2025-mega-thread-discussion-day-2-v0-kcuv9q1wbx4e1.jpeg?width=640&crop=smart&auto=webp&s=26429e0bd1c353cff5b6b55fc1bd3910b40dc67b",
-        "downloads": "495k",
-        "rating": 4.5,
-        "description": "This mod for Dream League gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
-        "category": "RPG",
-        "isNew": false
-    },
-    {
-        "id": 5,
-        "dateAdded": "2025-10-21",
-        "name": "CarX Street",
-        "image": "https://play-lh.googleusercontent.com/B8INYkehIFue2QH_RoTQ6Rs5VndWrgUaKdscFCMWQwOQW13jwQE1YyBryuQA00XAshc=w240-h480-rw",
-        "downloads": "567k",
-        "rating": 5.0,
-        "description": "This mod for CarX Street gives you unlimited money and unlocks all paid content for free, letting you enjoy everything the game has to offer without any cost",
-        "category": "Action",
-        "isNew": true
-    }
-];
+        // 1. إخفاء شاشة التحميل
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hide');
+                setTimeout(() => { preloader.style.display = 'none'; }, 500);
+            }, 2000);
+        });
 
-        // DOM elements
-        const gamesContainer = document.getElementById('gamesContainer');
-        const searchInput = document.getElementById('searchInput');
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const sortSelect = document.getElementById('sortSelect');
+        // 2. تفعيل قائمة الموبايل
+        const menuBtn = document.getElementById('menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        const icon = menuBtn.querySelector('i');
 
-        // Current filter state
-        let currentFilter = 'all';
-        let currentSearchTerm = '';
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        });
 
-        // Initialize the site
-        function init() {
-            renderGames();
-            setupEventListeners();
-        }
+        // 3. تفعيل النافذة المنبثقة (Modal)
+        const modal = document.getElementById("uploadModal");
+        const openBtns = document.querySelectorAll(".btn-contribute"); // زر الهيدر وزر الموبايل
+        const closeBtn = document.querySelector(".close-btn");
 
-        // Set up event listeners
-        function setupEventListeners() {
-            // Search functionality - with debouncing
-            searchInput.addEventListener('input', debounce(handleSearch, 300));
-            
-            // Filter functionality
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    currentFilter = button.dataset.filter;
-                    applyFiltersAndSearch();
-                });
+        openBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                modal.classList.add("show");
+                // إغلاق قائمة الموبايل تلقائياً
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('active');
+                    icon.classList.replace('fa-xmark', 'fa-bars');
+                }
             });
-            
-            // Sort functionality
-            sortSelect.addEventListener('change', applyFiltersAndSearch);
-        }
+        });
 
-        // Debounce function to improve search performance
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
+        closeBtn.addEventListener("click", () => {
+            modal.classList.remove("show");
+        });
 
-        // Apply both filters and search
-        function applyFiltersAndSearch() {
-            let filteredGames = filterGames(gamesData, currentFilter);
-            filteredGames = searchGames(filteredGames, currentSearchTerm);
-            filteredGames = sortGames(filteredGames, sortSelect.value);
-            renderGames(filteredGames);
-        }
-
-        // Filter games by category
-        function filterGames(games, filter) {
-            switch(filter) {
-                case 'new':
-                    return games.filter(game => game.isNew);
-                case 'popular':
-                    return [...games].sort((a, b) => {
-                        const aDownloads = parseFloat(a.downloads) * (a.downloads.includes('M') ? 1000000 : 1000);
-                        const bDownloads = parseFloat(b.downloads) * (b.downloads.includes('M') ? 1000000 : 1000);
-                        return bDownloads - aDownloads;
-                    });
-                case 'top-rated':
-                    return [...games].sort((a, b) => b.rating - a.rating);
-                case 'rpg':
-                    return games.filter(game => game.category === 'RPG');
-                case 'action':
-                    return games.filter(game => game.category === 'Action');
-                default:
-                    return games;
+        window.addEventListener("click", (e) => {
+            if (e.target == modal) {
+                modal.classList.remove("show");
             }
-        }
+        });
 
-        // Search games by term
-        function searchGames(games, searchTerm) {
-            if (!searchTerm) return games;
-            
-            return games.filter(game => {
-                return (
-                    game.name.toLowerCase().includes(searchTerm) ||
-                    game.description.toLowerCase().includes(searchTerm) ||
-                    game.category.toLowerCase().includes(searchTerm)
-                );
-            });
-        }
+        // 4. إظهار اسم الملف المختار في النموذج
+        const fileInput = document.getElementById('file-input');
+        const fileNameDisplay = document.getElementById('file-name');
 
-        // Sort games
-        function sortGames(games, sortValue) {
-            let sortedGames = [...games];
-            
-            switch(sortValue) {
-                case 'name':
-                    sortedGames.sort((a, b) => a.name.localeCompare(b.name));
-                    break;
-                case 'downloads':
-                    sortedGames.sort((a, b) => {
-                        const aDownloads = parseFloat(a.downloads) * (a.downloads.includes('M') ? 1000000 : 1000);
-                        const bDownloads = parseFloat(b.downloads) * (b.downloads.includes('M') ? 1000000 : 1000);
-                        return bDownloads - aDownloads;
-                    });
-                    break;
-                case 'rating':
-                    sortedGames.sort((a, b) => b.rating - a.rating);
-                    break;
-                case 'newest':
-                    sortedGames.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
-                    break;
-                default:
-                    // 'default' - no sorting needed
-                    break;
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                fileNameDisplay.textContent = "تم اختيار: " + this.files[0].name;
+                fileNameDisplay.style.color = "#10b981"; // لون أخضر عند النجاح
+            } else {
+                fileNameDisplay.textContent = "لم يتم اختيار ملف";
+                fileNameDisplay.style.color = "var(--accent)";
             }
-            
-            return sortedGames;
-        }
-
-        // Handle search functionality
-        function handleSearch(e) {
-            currentSearchTerm = e.target.value.toLowerCase().trim();
-            applyFiltersAndSearch();
-        }
-
-        // Render games based on current filter and sort
-        function renderGames(gamesToRender = null) {
-            const games = gamesToRender || gamesData;
-            
-            // Clear existing content
-            gamesContainer.innerHTML = '';
-            
-            // Show message if no games found
-            if (games.length === 0) {
-                displayNoResults();
-                return;
-            }
-            
-            // Render games
-            games.forEach(game => {
-                const gameCard = createGameCard(game);
-                gamesContainer.appendChild(gameCard);
-            });
-        }
-
-        // Create a game card element
-        function createGameCard(game) {
-            const card = document.createElement('div');
-            card.className = 'game-card';
-            card.dataset.id = game.id;
-            card.dataset.category = game.category;
-            
-            // Generate star rating HTML
-            const stars = generateStarRating(game.rating);
-            
-            card.innerHTML = `
-                ${game.isNew ? '<div class="new-badge">NEW</div>' : ''}
-                <img src="${game.image}" alt="${game.name}" class="game-image">
-                <div class="game-info">
-                    <h3 class="game-title">${game.name}</h3>
-                    <p class="game-description">${game.description}</p>
-                    <div class="game-stats">
-                        <span class="downloads"><i class="fas fa-download"></i> ${game.downloads}</span>
-                        <span class="rating"><i class="fas fa-star"></i> ${stars}</span>
-                    </div>
-                    <button class="download-btn" onclick="_Jf()">Download <i class="fas fa-arrow-down"></i></button>
-                </div>
-            `;
-            
-            return card;
-        }
-
-        // Generate star rating display
-        function generateStarRating(rating) {
-            let stars = '';
-            const fullStars = Math.floor(rating);
-            const hasHalfStar = rating % 1 !== 0;
-            
-            for (let i = 0; i < fullStars; i++) {
-                stars += '<i class="fas fa-star"></i>';
-            }
-            
-            if (hasHalfStar) {
-                stars += '<i class="fas fa-star-half-alt"></i>';
-            }
-            
-            const emptyStars = 5 - Math.ceil(rating);
-            for (let i = 0; i < emptyStars; i++) {
-                stars += '<i class="far fa-star"></i>';
-            }
-            
-            return stars;
-        }
-
-        // Display no results message
-        function displayNoResults() {
-            const noResultsHTML = `
-                <div class="no-results">
-                    <i class="fas fa-gamepad"></i>
-                    <h3>No games found</h3>
-                    <p>Try adjusting your search or filter to find what you're looking for.</p>
-                </div>
-            `;
-            
-            gamesContainer.innerHTML = noResultsHTML;
-        }
-
-        // Function to update games data (called by Python)
-        window.updateGamesData = function(newGamesData) {
-            gamesData = newGamesData;
-            applyFiltersAndSearch();
-        };
-
-        // Initialize the site when DOM is loaded
-        document.addEventListener('DOMContentLoaded', init);
+        });
     </script>
 </body>
 </html>
