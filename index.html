@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-M2BP83HK');</script>
+            <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIRASA | منصة الدراسة الجامعية</title>
@@ -171,6 +178,15 @@
 </head>
 <body>
 
+
+
+            <!-- Google Tag Manager (noscript) -->
+            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2BP83HK"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+            <!-- End Google Tag Manager (noscript) -->
+
+
+
     <div id="preloader">
         <div class="atom-container">
             <div class="nucleus"></div>
@@ -265,15 +281,15 @@
                 </div>
 
                 <div class="file-upload-wrapper">
-                    <input type="file" name="attachment" id="file-input" class="file-input" required accept=".pdf,.docx,.doc,.pptx,.jpg,.jpeg,.png,.webp">
+                    <input type="file" name="attachment[]" id="file-input" class="file-input" required multiple accept=".pdf,.docx,.doc,.pptx,.jpg,.jpeg,.png,.webp">
                     <div class="file-upload-box">
                         <i class="fa-solid fa-file-import icon-upload"></i>
-                        <p>اضغط هنا لاختيار ملف أو اسحبه هنا</p>
+                        <p>اضغط هنا لاختيار ملفات أو اسحبها هنا</p>
                         <span id="file-name" class="file-name-display">لم يتم اختيار ملف</span>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-submit">إرسال الملف <i class="fa-regular fa-paper-plane"></i></button>
+                <button type="submit" class="btn-submit">إرسال الملفات <i class="fa-regular fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
@@ -329,13 +345,18 @@
             }
         });
 
-        // 4. إظهار اسم الملف المختار في النموذج
+        // 4. إظهار عدد الملفات المختارة
         const fileInput = document.getElementById('file-input');
         const fileNameDisplay = document.getElementById('file-name');
 
         fileInput.addEventListener('change', function() {
             if (this.files && this.files.length > 0) {
-                fileNameDisplay.textContent = "تم اختيار: " + this.files[0].name;
+                // تحديث المنطق ليعرض العدد إذا كان أكثر من ملف
+                if(this.files.length === 1) {
+                    fileNameDisplay.textContent = "تم اختيار: " + this.files[0].name;
+                } else {
+                    fileNameDisplay.textContent = "تم اختيار " + this.files.length + " ملفات";
+                }
                 fileNameDisplay.style.color = "#10b981"; // لون أخضر عند النجاح
             } else {
                 fileNameDisplay.textContent = "لم يتم اختيار ملف";
@@ -345,5 +366,3 @@
     </script>
 </body>
 </html>
-
-
