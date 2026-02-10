@@ -269,20 +269,15 @@
                 <p>ساهم في إثراء المحتوى. سيتم مراجعة الملف قبل نشره.</p>
             </div>
             
-            <form action="https://formsubmit.co/leadenmechmachi@gmail.com" method="POST" enctype="multipart/form-data" class="custom-form">
+            <form name="contributions" method="POST" data-netlify="true" enctype="multipart/form-data" class="custom-form">
                 
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_subject" value="مساهمة جديدة في موقع DIRASA!">
-                <input type="hidden" name="_autoresponse" value="شكراً لمساهمتك! وصلنا ملفك وسنراجعه قريباً.">
-
                 <div class="input-group">
                     <input type="text" name="student_name" placeholder="الاسم (اختياري)" class="glass-input">
                     <input type="text" name="module_name" placeholder="اسم المادة*" required class="glass-input">
                 </div>
 
                 <div class="file-upload-wrapper">
-                    <input type="file" name="attachment[]" id="file-input" class="file-input" required multiple accept=".pdf,.docx,.doc,.pptx,.jpg,.jpeg,.png,.webp">
+                    <input type="file" name="attachment" id="file-input" class="file-input" required multiple accept=".pdf,.docx,.doc,.pptx,.jpg,.jpeg,.png,.webp">
                     <div class="file-upload-box">
                         <i class="fa-solid fa-file-import icon-upload"></i>
                         <p>اضغط هنا لاختيار ملفات أو اسحبها هنا</p>
@@ -367,4 +362,3 @@
     </script>
 </body>
 </html>
-
