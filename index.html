@@ -269,13 +269,15 @@
                 <p>ساهم في إثراء المحتوى. سيتم مراجعة الملف قبل نشره.</p>
             </div>
             
-            <form name="contributions" method="POST" data-netlify="true" enctype="multipart/form-data" class="custom-form">
+                        <form name="contributions" method="POST" data-netlify="true" action="/success.html" enctype="multipart/form-data" class="custom-form">
                 
+                <input type="hidden" name="form-name" value="contributions" />
+            
                 <div class="input-group">
                     <input type="text" name="student_name" placeholder="الاسم (اختياري)" class="glass-input">
                     <input type="text" name="module_name" placeholder="اسم المادة*" required class="glass-input">
                 </div>
-
+            
                 <div class="file-upload-wrapper">
                     <input type="file" name="attachment" id="file-input" class="file-input" required multiple accept=".pdf,.docx,.doc,.pptx,.jpg,.jpeg,.png,.webp">
                     <div class="file-upload-box">
@@ -284,7 +286,7 @@
                         <span id="file-name" class="file-name-display">لم يتم اختيار ملف</span>
                     </div>
                 </div>
-
+            
                 <button type="submit" class="btn-submit">إرسال الملفات <i class="fa-regular fa-paper-plane"></i></button>
             </form>
         </div>
@@ -362,3 +364,4 @@
     </script>
 </body>
 </html>
+
