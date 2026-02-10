@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تم الإرسال بنجاح | DIRASA</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            text-align: center;
+            background-image: radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 50%);
+        }
+        .success-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #10b981;
+            font-size: 40px;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+        h1 { margin-bottom: 10px; font-size: 1.5rem; }
+        p { color: #94a3b8; margin-bottom: 30px; line-height: 1.6; }
+        .btn-home {
+            background: #3b82f6;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .btn-home:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="success-card">
+        <div class="icon-circle"><i class="fa-solid fa-check"></i></div>
+        <h1>تم استلام مساهمتك!</h1>
+        <p>شكراً جزيلاً لك. تم رفع الملف بنجاح وسيقوم فريقنا بمراجعته قريباً لإضافته للمكتبة.</p>
+        <a href="index.html" class="btn-home">العودة للرئيسية</a>
+    </div>
+</body>
+</html>
