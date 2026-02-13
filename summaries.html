@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIRASA | الملخصات</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-body: #171616;
+            --bg-header: #1e1d1d;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --accent: #ffffff;
+            --border-color: #333333;
+            --physics-blue: #3b82f6; 
+            --physics-blue-light: rgba(59, 130, 246, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'IBM Plex Sans Arabic', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-body); z-index: 99999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        .atom-loader { position: relative; width: 100px; height: 100px; margin-bottom: 20px; }
+        .atom-loader .nucleus { position: absolute; top: 50%; left: 50%; width: 16px; height: 16px; background: var(--text-primary); border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 15px var(--physics-blue), 0 0 30px var(--physics-blue); }
+        .atom-loader .orbit { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 2px solid rgba(59, 130, 246, 0.2); border-top: 2px solid var(--physics-blue); }
+        .atom-loader .orbit:nth-child(2) { animation: spin1 1.2s linear infinite; }
+        .atom-loader .orbit:nth-child(3) { animation: spin2 1.2s linear infinite; }
+        .atom-loader .orbit:nth-child(4) { animation: spin3 1.2s linear infinite; }
+        @keyframes spin1 { 0% { transform: rotateZ(0deg) rotateX(65deg) rotateZ(0deg); } 100% { transform: rotateZ(0deg) rotateX(65deg) rotateZ(360deg); } }
+        @keyframes spin2 { 0% { transform: rotateZ(60deg) rotateX(65deg) rotateZ(0deg); } 100% { transform: rotateZ(60deg) rotateX(65deg) rotateZ(360deg); } }
+        @keyframes spin3 { 0% { transform: rotateZ(120deg) rotateX(65deg) rotateZ(0deg); } 100% { transform: rotateZ(120deg) rotateX(65deg) rotateZ(360deg); } }
+        .loading-text { color: var(--text-secondary); font-size: 1rem; letter-spacing: 2px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        .navbar { background-color: var(--bg-header); height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 26px; font-weight: 700; color: var(--text-primary); letter-spacing: 2px; text-decoration: none; font-family: sans-serif; cursor: pointer; user-select: none; }
+        .nav-links { display: flex; gap: 35px; list-style: none; transition: all 0.3s ease; }
+        .nav-item { text-decoration: none; color: var(--text-secondary); font-weight: 600; font-size: 16px; transition: color 0.3s ease; position: relative; padding: 5px 0; cursor: pointer; display: block; }
+        .nav-item:hover, .nav-item.active { color: var(--accent); }
+        .nav-item::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; right: 0; background-color: var(--accent); transition: width 0.3s ease; }
+        .nav-item:hover::after, .nav-item.active::after { width: 100%; }
+        
+        .menu-btn { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
+        .menu-btn span { width: 25px; height: 3px; background-color: var(--text-primary); transition: 0.3s; border-radius: 2px; }
+        #menu-toggle { display: none; }
+
+        .main-content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+        .search-container {
+            display: flex; align-items: center; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 20px;
+            margin-bottom: 40px; transition: border-color 0.3s;
+        }
+        .search-container:focus-within { border-color: var(--physics-blue); box-shadow: 0 0 10px rgba(59, 130, 246, 0.1); }
+        .search-icon { width: 24px; height: 24px; stroke: var(--text-secondary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-left: 15px; }
+        .search-input { flex: 1; background: transparent; border: none; color: var(--text-primary); font-size: 1rem; outline: none; }
+        .search-input::placeholder { color: var(--text-secondary); }
+
+        .items-list { display: flex; flex-direction: column; gap: 15px; }
+
+        .item-card {
+            display: flex; align-items: center; background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color); padding: 20px 25px; border-radius: 12px;
+            text-decoration: none; color: var(--text-primary); transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        }
+        .item-card:hover { border-color: var(--physics-blue); background: rgba(59, 130, 246, 0.05); transform: translateX(-5px); }
+        .item-info { display: flex; align-items: center; gap: 20px; width: 100%; }
+        .file-icon { width: 32px; height: 32px; stroke: var(--physics-blue); stroke-width: 1.5; fill: var(--physics-blue-light); stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .item-text h3 { font-size: 1.15rem; font-weight: 600; margin: 0; }
+
+        .system-msg { text-align: center; color: var(--text-secondary); font-size: 1.1rem; margin-top: 30px; }
+        #noResultsMsg { display: none; }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 0 20px; }
+            .menu-btn { display: flex; }
+            .nav-links { position: absolute; top: 70px; right: 0; width: 100%; background-color: var(--bg-header); flex-direction: column; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border-color); max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; }
+            #menu-toggle:checked ~ .nav-links { max-height: 300px; opacity: 1; padding: 20px 0; }
+            #menu-toggle:checked ~ .menu-btn span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            #menu-toggle:checked ~ .menu-btn span:nth-child(2) { opacity: 0; }
+            #menu-toggle:checked ~ .menu-btn span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+            .item-card { padding: 15px; }
+            .item-info { gap: 15px; }
+            .file-icon { width: 28px; height: 28px; }
+            .item-text h3 { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="atom-loader">
+            <div class="nucleus"></div>
+            <div class="orbit"></div>
+            <div class="orbit"></div>
+            <div class="orbit"></div>
+        </div>
+        <div class="loading-text">جاري التحميل...</div>
+    </div>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">DIRASA</a>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-btn">
+            <span></span><span></span><span></span>
+        </label>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-item">الرئيسية</a></li>
+            <li><a href="summaries.html" class="nav-item active">الملخصات</a></li>
+            <li><a href="lessons.html" class="nav-item">الدروس</a></li>
+            <li><a href="exercises.html" class="nav-item">التمارين</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        
+        <div class="search-container">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن ملخص...">
+        </div>
+
+        <div class="items-list" id="itemsList">
+            <p class="system-msg" id="loadingDataMsg">جاري جلب الملخصات من قاعدة البيانات...</p>
+        </div>
+
+        <p class="system-msg" id="noResultsMsg">لم يتم العثور على ملخصات بهذا الاسم.</p>
+
+    </main>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 800); 
+        });
+
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQmcEfkJlSYJfgaGCKY0kfpnAhCuMnSLu2L6G0cqk3tlvTVNotGLWd-7U7nbG1Y6hQNungxbl5DF0Mk/pub?gid=1871972362&single=true&output=csv';
+
+        function parseCSV(str) {
+            const arr = [];
+            let quote = false;
+            let row = 0, col = 0;
+            for (let c = 0; c < str.length; c++) {
+                let cc = str[c], nc = str[c+1];
+                arr[row] = arr[row] || [];
+                arr[row][col] = arr[row][col] || '';
+                if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+                if (cc == '"') { quote = !quote; continue; }
+                if (cc == ',' && !quote) { ++col; continue; }
+                if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+                if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+                if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+                arr[row][col] += cc;
+            }
+            return arr;
+        }
+
+        async function fetchItems() {
+            const listContainer = document.getElementById('itemsList');
+            const loadingMsg = document.getElementById('loadingDataMsg');
+
+            try {
+                const response = await fetch(SHEET_URL);
+                if (!response.ok) throw new Error("فشل الاتصال");
+                
+                const csvText = await response.text();
+                const rows = parseCSV(csvText);
+                
+                listContainer.innerHTML = ''; 
+                let hasItems = false;
+
+                for (let i = 1; i < rows.length; i++) {
+                    if (rows[i].length < 4) continue; 
+                    
+                    const itemName = rows[i][1]?.trim();
+                    const itemType = rows[i][2]?.trim() || "";
+                    const itemLink = rows[i][3]?.trim();
+
+                    // هنا قمنا بتغيير الفلتر إلى "ملخص"
+                    if (itemName && itemLink && itemType.includes("ملخص")) {
+                        hasItems = true;
+                        
+                        const card = document.createElement('a');
+                        card.href = itemLink;
+                        card.target = "_blank"; 
+                        card.className = "item-card";
+                        
+                        card.innerHTML = `
+                            <div class="item-info">
+                                <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                <div class="item-text">
+                                    <h3>${itemName}</h3>
+                                </div>
+                            </div>
+                        `;
+                        
+                        listContainer.insertBefore(card, listContainer.firstChild);
+                    }
+                }
+
+                if (!hasItems) {
+                    listContainer.innerHTML = '<p class="system-msg">لا توجد ملخصات حالياً. سيتم إضافتها قريباً!</p>';
+                }
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                loadingMsg.textContent = 'حدث خطأ أثناء جلب البيانات. يرجى التأكد من الرابط أو الاتصال بالإنترنت.';
+            }
+        }
+
+        fetchItems();
+
+        const searchInput = document.getElementById('searchInput');
+        const noResultsMsg = document.getElementById('noResultsMsg');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            const itemCards = document.querySelectorAll('.item-card'); 
+            let hasResults = false;
+
+            itemCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                
+                if (title.includes(query)) {
+                    card.style.display = 'flex';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (hasResults || itemCards.length === 0) {
+                noResultsMsg.style.display = 'none';
+            } else {
+                noResultsMsg.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
