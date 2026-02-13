@@ -197,14 +197,8 @@
             }, 800); 
         });
 
-        // ==========================================
-        // إعدادات Google Sheets المتقدمة
-        // ==========================================
-        
-        // الرابط المباشر لجلب البيانات بصيغة CSV الذي قمت بتوفيره
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQmcEfkJlSYJfgaGCKY0kfpnAhCuMnSLu2L6G0cqk3tlvTVNotGLWd-7U7nbG1Y6hQNungxbl5DF0Mk/pub?gid=1871972362&single=true&output=csv';
 
-        // دالة تحويل نصوص CSV إلى مصفوفة بيانات
         function parseCSV(str) {
             const arr = [];
             let quote = false;
@@ -224,7 +218,6 @@
             return arr;
         }
 
-        // دالة جلب البيانات من شيت جوجل
         async function fetchLessons() {
             const listContainer = document.getElementById('lessonsList');
             const loadingMsg = document.getElementById('loadingDataMsg');
@@ -236,26 +229,28 @@
                 const csvText = await response.text();
                 const rows = parseCSV(csvText);
                 
-                listContainer.innerHTML = ''; // مسح رسالة التحميل
+                listContainer.innerHTML = ''; 
                 let hasLessons = false;
 
-                // نبدأ من 1 لتخطي الصف الأول (عناوين الأعمدة)
                 for (let i = 1; i < rows.length; i++) {
-                    if (rows[i].length < 4) continue; // التأكد من وجود البيانات حتى العمود D
+                    if (rows[i].length < 4) continue; 
                     
-                    // العمود B (رقم 1): اسم الدرس
-                    const lessonName = rows[i][1]?.trim();
+                    // العمود B (رقم 1): اسم الملف
+                    const itemName = rows[i][1]?.trim();
                     
-                    // العمود D (رقم 3): رابط الدرس
-                    const lessonLink = rows[i][3]?.trim();
+                    // العمود C (رقم 2): نوع الملف (درس، تمرين، ملخص)
+                    const itemType = rows[i][2]?.trim() || "";
+                    
+                    // العمود D (رقم 3): الرابط
+                    const itemLink = rows[i][3]?.trim();
 
-                    if (lessonName && lessonLink) {
+                    // هنا قمنا بإضافة شرط للفلترة: (إذا كان النوع يحتوي على كلمة "درس")
+                    if (itemName && itemLink && itemType.includes("درس")) {
                         hasLessons = true;
                         
-                        // إنشاء بطاقة الدرس
                         const card = document.createElement('a');
-                        card.href = lessonLink;
-                        card.target = "_blank"; // يفتح الرابط في نافذة جديدة
+                        card.href = itemLink;
+                        card.target = "_blank"; 
                         card.className = "lesson-card";
                         
                         card.innerHTML = `
@@ -268,12 +263,13 @@
                                     <polyline points="10 9 9 9 8 9"></polyline>
                                 </svg>
                                 <div class="lesson-text">
-                                    <h3>${lessonName}</h3>
+                                    <h3>${itemName}</h3>
                                 </div>
                             </div>
                         `;
                         
-                        listContainer.appendChild(card);
+                        // إضافة الدرس إلى بداية القائمة (لكي تظهر الدروس الجديدة في الأعلى)
+                        listContainer.insertBefore(card, listContainer.firstChild);
                     }
                 }
 
@@ -287,12 +283,8 @@
             }
         }
 
-        // تشغيل جلب البيانات فور تحميل الصفحة
         fetchLessons();
 
-        // ==========================================
-        // برمجة شريط البحث الفوري
-        // ==========================================
         const searchInput = document.getElementById('searchInput');
         const noResultsMsg = document.getElementById('noResultsMsg');
 
