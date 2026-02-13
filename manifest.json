@@ -1,0 +1,21 @@
+{
+  "name": "DIRASA | دراسة",
+  "short_name": "DIRASA",
+  "description": "منصة تعليمية للدروس، الملخصات والتمارين في الفيزياء",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#171616",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
